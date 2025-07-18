@@ -200,16 +200,15 @@
       { word: "MYVIE", clueIndex: 4 }
     ];
 
+    const targetColumn = 6;
     const crosswordContainer = document.getElementById("crossword");
 
     function buildCrossword() {
-      const maxLength = Math.max(...crosswordData.map(item => item.word.length));
       crosswordData.forEach((item, index) => {
         const row = document.createElement("div");
         row.className = "row";
 
-        const padLeft = Math.floor((maxLength - item.word.length) / 2);
-        const padRight = (maxLength - item.word.length) - padLeft;
+        const padLeft = targetColumn - item.clueIndex;
 
         for (let j = 0; j < padLeft; j++) {
           const placeholder = document.createElement("div");
@@ -240,12 +239,6 @@
           cell.appendChild(input);
           row.appendChild(cell);
         });
-
-        for (let j = 0; j < padRight; j++) {
-          const placeholder = document.createElement("div");
-          placeholder.className = "cell placeholder";
-          row.appendChild(placeholder);
-        }
 
         const feedback = document.createElement("span");
         feedback.className = "checkmark";

@@ -321,7 +321,7 @@
     <h2>GRATULACJE!</h2>
     <p>Udało Ci się znaleźć wszystkie pary!</p>
     <p id="final-time">Twój czas: ...</p>
-    <button onclick="restartGame()">Zagraj ponownie</button>
+    <button onclick="localStorage.setItem('autoStart','true'); location.reload()">Zagraj ponownie</button>
 
     <div id="end-logo-section">
       <img src="img/Logo.png" alt="Logo gry" />
@@ -430,16 +430,11 @@
       matchedPairs = 0;
       firstCard = null;
       secondCard = null;
-      lockBoard = true;
+      lockBoard = false;
 
       createBoard(true);
-      lockBoard = false;
       startTimer();
-
       endScreen.classList.remove("visible");
-      document.getElementById("game-container").style.display = "flex";
-      document.getElementById("instruction").style.display = "";
-      document.getElementById("instruction-mobile").style.display = "";
     };
 
     const endGame = () => {
@@ -471,7 +466,18 @@
     });
 
     window.onload = () => {
-      createBoard(false);
+      const autoStart = localStorage.getItem("autoStart");
+      if (autoStart === "true") {
+        localStorage.removeItem("autoStart");
+        createBoard(true);
+        document.querySelectorAll(".cover").forEach(cover => cover.classList.add("kolorowa"));
+        lockBoard = false;
+        startTimer();
+        started = true;
+        startBtn.textContent = "Restart";
+      } else {
+        createBoard(false);
+      }
     };
   </script>
 </body>

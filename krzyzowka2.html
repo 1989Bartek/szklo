@@ -35,6 +35,9 @@
       font-weight: bold;
       background-color: #111;
       color: white;
+      font-family: monospace;
+      letter-spacing: 0;
+      white-space: nowrap;
     }
 
     .green {
@@ -66,8 +69,7 @@
       { word: "MYVIE", clueIndex: 4 }
     ];
 
-    const maxOffset = 6; // każda zielona kratka będzie w tej samej kolumnie
-
+    const maxOffset = 6;
     const grid = document.getElementById("grid");
 
     words.forEach((item) => {

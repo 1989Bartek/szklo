@@ -201,6 +201,7 @@
     ];
 
     const targetColumn = 6;
+    const maxLength = Math.max(...crosswordData.map(item => item.word.length));
     const crosswordContainer = document.getElementById("crossword");
 
     function buildCrossword() {
@@ -209,6 +210,7 @@
         row.className = "row";
 
         const padLeft = targetColumn - item.clueIndex;
+        const padRight = maxLength - item.word.length - padLeft;
 
         for (let j = 0; j < padLeft; j++) {
           const placeholder = document.createElement("div");
@@ -239,6 +241,12 @@
           cell.appendChild(input);
           row.appendChild(cell);
         });
+
+        for (let j = 0; j < padRight; j++) {
+          const placeholder = document.createElement("div");
+          placeholder.className = "cell placeholder";
+          row.appendChild(placeholder);
+        }
 
         const feedback = document.createElement("span");
         feedback.className = "checkmark";

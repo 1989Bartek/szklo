@@ -63,6 +63,7 @@
       font-size: 24px;
       text-transform: uppercase;
       color: white;
+      padding: 0;
     }
 
     .cell input {
@@ -72,8 +73,11 @@
       border: none;
       text-align: center;
       font-size: 24px;
+      font-family: 'Courier New', monospace;
       color: white;
       outline: none;
+      padding: 0;
+      margin: 0;
     }
 
     .highlight {
@@ -204,9 +208,10 @@
         const row = document.createElement("div");
         row.className = "row";
 
-        const pad = Math.floor((maxLength - item.word.length) / 2);
+        const padLeft = Math.floor((maxLength - item.word.length) / 2);
+        const padRight = (maxLength - item.word.length) - padLeft;
 
-        for (let j = 0; j < pad; j++) {
+        for (let j = 0; j < padLeft; j++) {
           const placeholder = document.createElement("div");
           placeholder.className = "cell placeholder";
           row.appendChild(placeholder);
@@ -235,6 +240,12 @@
           cell.appendChild(input);
           row.appendChild(cell);
         });
+
+        for (let j = 0; j < padRight; j++) {
+          const placeholder = document.createElement("div");
+          placeholder.className = "cell placeholder";
+          row.appendChild(placeholder);
+        }
 
         const feedback = document.createElement("span");
         feedback.className = "checkmark";

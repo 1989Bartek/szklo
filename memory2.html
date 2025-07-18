@@ -200,19 +200,18 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    /* NOWY SEKCJA LOGO PO WYGRANEJ */
     #end-logo-section {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
-    #end-logo {
+    #end-logo-section img {
       max-width: 400px;
       width: 80%;
       height: auto;
     }
 
-    #end-website {
+    #end-logo-section p {
       margin-top: 8px;
       font-weight: bold;
     }
@@ -282,11 +281,7 @@
         font-size: 14px;
       }
 
-      #end-logo {
-        width: 80%;
-      }
-
-      #end-website {
+      #end-logo-section p {
         font-size: 14px;
       }
     }
@@ -328,10 +323,9 @@
     <p id="final-time">Twój czas: ...</p>
     <button onclick="restartGame()">Zagraj ponownie</button>
 
-    <!-- NOWA SEKCJA LOGO -->
     <div id="end-logo-section">
-      <img src="img/Logo.png" alt="Logo gry" id="end-logo" />
-      <p id="end-website">WWW.SZKLOMUSTGOON.PL</p>
+      <img src="img/Logo.png" alt="Logo gry" />
+      <p>WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
 
@@ -437,13 +431,15 @@
       firstCard = null;
       secondCard = null;
       lockBoard = true;
-      document.getElementById("game-container").style.display = "flex";
-      document.getElementById("instruction").style.display = "";
-      document.getElementById("instruction-mobile").style.display = "";
-      endScreen.classList.remove("visible");
+
       createBoard(true);
       lockBoard = false;
       startTimer();
+
+      endScreen.classList.remove("visible");
+      document.getElementById("game-container").style.display = "flex";
+      document.getElementById("instruction").style.display = "";
+      document.getElementById("instruction-mobile").style.display = "";
     };
 
     const endGame = () => {

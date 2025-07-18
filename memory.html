@@ -313,7 +313,7 @@
     <h2>GRATULACJE!</h2>
     <p>Udało Ci się znaleźć wszystkie pary!</p>
     <p id="final-time">Twój czas: ...</p>
-    <button onclick="window.location.reload()">Zagraj ponownie</button>
+    <button onclick="restartGame()">Zagraj ponownie</button>
   </div>
 
   <script>
@@ -410,6 +410,64 @@
       clearInterval(timer);
     };
 
+    const restartGame = () => {
+      stopTimer();
+      seconds = 0;
+      timerDisplay.textContent = "Czas: 0 s";
+      matchedPairs = 0;
+      firstCard = null;
+      secondCard = null;
+      lockBoard = true;
+
+      const oldCards = Array.from(document.querySelectorAll(".card"));
+      const gridRect = gridContainer.getBoundingClientRect();
+      const centerX = gridRect.left + gridRect.width / 2;
+      const centerY = gridRect.top + gridRect.height / 2;
+
+      oldCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const offsetX = centerX - (rect.left + rect.width / 2);
+        const offsetY = centerY - (rect.top + rect.height / 2);
+        card.style.transition = "transform 0.5s ease-in-out";
+        card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+
+      setTimeout(() => {
+        createBoard(true);
+        lockBoard = false;
+        startTimer();
+
+        const newCards = Array.from(document.querySelectorAll(".card"));
+        const newGridRect = gridContainer.getBoundingClientRect();
+        const newCenterX = newGridRect.left + newGridRect.width / 2;
+        const newCenterY = newGridRect.top + newGridRect.height / 2;
+
+        newCards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const offsetX = newCenterX - (rect.left + rect.width / 2);
+          const offsetY = newCenterY - (rect.top + rect.height / 2);
+          card.style.transition = "none";
+          card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        });
+
+        setTimeout(() => {
+          newCards.forEach(card => {
+            card.style.transition = "transform 0.6s ease-in-out";
+            card.style.transform = "translate(0, 0)";
+          });
+
+          setTimeout(() => {
+            newCards.forEach(card => {
+              card.style.transition = "";
+              card.style.transform = "";
+            });
+          }, 700);
+        }, 30);
+      }, 600);
+
+      endScreen.classList.remove("visible");
+    };
+
     const endGame = () => {
       stopTimer();
       finalTime.textContent = `Twój czas: ${seconds} s`;
@@ -434,7 +492,7 @@
         startBtn.textContent = "Restart";
         started = true;
       } else {
-        window.location.reload();
+        restartGame();
       }
     });
 
@@ -444,3 +502,4 @@
   </script>
 </body>
 </html>
+

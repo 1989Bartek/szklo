@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gra Krzyżówka – Szkło Must Go On</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 30px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #instruction {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .crossword-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .letter-box {
+      width: 40px;
+      height: 40px;
+      background: white;
+      color: black;
+      font-size: 24px;
+      text-transform: uppercase;
+      text-align: center;
+      border-radius: 6px;
+      margin-right: 4px;
+      border: none;
+    }
+
+    .letter-box:focus {
+      outline: 2px solid #90ee90;
+    }
+
+    .highlight {
+      background-color: #90ee90 !important;
+    }
+
+    .hint-text {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .checkmark {
+      font-size: 24px;
+      color: #90ee90;
+      margin-left: 10px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    #buttons button {
+      padding: 15px 25px;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="game-title">KRZYŻÓWKA</h1>
+
+  <p id="instruction">
+    <span style="font-size: 22px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span style="font-size: 18px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+  </p>
+
+  <div id="crossword-container"></div>
+
+  <div id="buttons">
+    <button id="checkBtn">Zatwierdź</button>
+  </div>
+
+  <div id="hints" style="max-width: 600px; margin: auto;">
+    <p class="hint-text">1. Opakowanie na perfumy.</p>
+    <p class="hint-text">2. Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
+    <p class="hint-text">3. Miejsce, w którym produkowane są nowe butelki szklane?</p>
+    <p class="hint-text">4. Nazwa procesu ponownego przetwarzania odpadów.</p>
+    <p class="hint-text">5. Kolor pojemnika na szkło.</p>
+    <p class="hint-text">6. Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</p>
+    <p class="hint-text">7. Duży samochód odbierający odpady.</p>
+    <p class="hint-text">8. Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</p>
+    <p class="hint-text">9. Pojemnik na konfitury i przetwory.</p>
+    <p class="hint-text">10. Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</p>
+    <p class="hint-text">11. Miejsce, w którym sortowane są odpady.</p>
+    <p class="hint-text">12. Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</p>
+  </div>
+
+  <div id="logo-section">
+    <img src="img/Logo.png" alt="Logo gry" id="logo" />
+    <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+  </div>
+
+  <script>
+    const crosswordData = [
+      { answer: "FLAKON", highlight: 4, solution: "O" },
+      { answer: "PAPIER", highlight: 2, solution: "P" },
+      { answer: "HUTA", highlight: 3, solution: "A" },
+      { answer: "RECYKLING", highlight: 4, solution: "K" },
+      { answer: "ZIELONY", highlight: 4, solution: "O" },
+      { answer: "WAZON", highlight: 0, solution: "W" },
+      { answer: "ŚMIECIARKA", highlight: 6, solution: "A" },
+      { answer: "SZKLANKA", highlight: 5, solution: "N" },
+      { answer: "SŁOIK", highlight: 3, solution: "I" },
+      { answer: "ODKRĘCIĆ", highlight: 0, solution: "O" },
+      { answer: "SORTOWNIA", highlight: 5, solution: "W" },
+      { answer: "MYVIE", highlight: 4, solution: "E" },
+    ];
+
+    const container = document.getElementById("crossword-container");
+
+    crosswordData.forEach((word, index) => {
+      const row = document.createElement("div");
+      row.classList.add("crossword-row");
+      row.dataset.index = index;
+
+      for (let i = 0; i < word.answer.length; i++) {
+        const input = document.createElement("input");
+        input.setAttribute("maxlength", "1");
+        input.classList.add("letter-box");
+        if (i === word.highlight) input.classList.add("highlight");
+
+        input.addEventListener("input", function () {
+          if (this.value.length === 1) {
+            const next = this.nextElementSibling;
+            if (next) next.focus();
+          }
+        });
+
+        row.appendChild(input);
+      }
+
+      const checkmark = document.createElement("span");
+      checkmark.classList.add("checkmark");
+      row.appendChild(checkmark);
+
+      container.appendChild(row);
+    });
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      const rows = document.querySelectorAll(".crossword-row");
+
+      rows.forEach((row, i) => {
+        const inputs = row.querySelectorAll("input");
+        let userAnswer = "";
+        inputs.forEach((input) => {
+          userAnswer += input.value.toUpperCase();
+        });
+
+        const checkmark = row.querySelector(".checkmark");
+        if (userAnswer === crosswordData[i].answer) {
+          checkmark.textContent = "✅";
+        } else {
+          checkmark.textContent = "";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 

@@ -169,7 +169,7 @@
       { word: "SMIECIARKA", clueIndex: 6 },
       { word: "SZKLANKA", clueIndex: 5 },
       { word: "SLOIK", clueIndex: 3 },
-      { word: "ODKRECIC", clueIndex: 3 },
+      { word: "ODKRECIC", clueIndex: 3 }, // 10. hasło
       { word: "SORTOWNIA", clueIndex: 5 },
       { word: "MYVIE", clueIndex: 4 }
     ];
@@ -182,6 +182,11 @@
       crosswordData.forEach((item, index) => {
         const row = document.createElement("div");
         row.className = "row";
+
+        if (index === 9) {
+          // dodajemy przesunięcie tylko do 10. wiersza
+          row.style.marginLeft = "20px"; // pół kratki = 20px
+        }
 
         const padLeft = targetColumn - item.clueIndex;
         const padRight = maxLength - item.word.length - padLeft;

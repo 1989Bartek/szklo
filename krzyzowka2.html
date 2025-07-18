@@ -81,6 +81,11 @@
       color: black;
     }
 
+    .placeholder {
+      background: transparent;
+      border: none;
+    }
+
     .checkmark {
       font-size: 24px;
       margin-left: 10px;
@@ -148,7 +153,6 @@
   </p>
 
   <div id="game-container">
-    <!-- Tu zostanie dynamicznie dodana krzyżówka przez JS -->
     <div id="crossword"></div>
 
     <div id="buttons">
@@ -195,9 +199,18 @@
     const crosswordContainer = document.getElementById("crossword");
 
     function buildCrossword() {
+      const maxLength = Math.max(...crosswordData.map(item => item.word.length));
       crosswordData.forEach((item, index) => {
         const row = document.createElement("div");
         row.className = "row";
+
+        const pad = Math.floor((maxLength - item.word.length) / 2);
+
+        for (let j = 0; j < pad; j++) {
+          const placeholder = document.createElement("div");
+          placeholder.className = "cell placeholder";
+          row.appendChild(placeholder);
+        }
 
         [...item.word].forEach((letter, i) => {
           const cell = document.createElement("div");

@@ -66,19 +66,20 @@
       { word: "MYVIE", clueIndex: 4 }
     ];
 
+    const maxOffset = 6; // każda zielona kratka będzie w tej samej kolumnie
+
     const grid = document.getElementById("grid");
 
-    words.forEach((item, index) => {
+    words.forEach((item) => {
       const row = document.createElement("div");
       row.classList.add("row");
 
-      const padLeft = 6 - item.clueIndex;
-      const padRight = Math.max(0, 12 - padLeft - item.word.length);
+      const paddingLeft = maxOffset - item.clueIndex;
 
-      for (let i = 0; i < padLeft; i++) {
-        const cell = document.createElement("div");
-        cell.className = "cell placeholder";
-        row.appendChild(cell);
+      for (let i = 0; i < paddingLeft; i++) {
+        const placeholder = document.createElement("div");
+        placeholder.className = "cell placeholder";
+        row.appendChild(placeholder);
       }
 
       [...item.word].forEach((letter, i) => {
@@ -87,16 +88,6 @@
         if (i === item.clueIndex) cell.classList.add("green");
         row.appendChild(cell);
       });
-
-      for (let i = 0; i < padRight; i++) {
-        const cell = document.createElement("div");
-        cell.className = "cell placeholder";
-        row.appendChild(cell);
-      }
-
-      if (index === 9) {
-        row.style.marginLeft = "40px";
-      }
 
       grid.appendChild(row);
     });

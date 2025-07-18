@@ -5,56 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gra Krzyżówka – Szkło Must Go On</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, sans-serif;
-      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
-      color: #e2e2e2;
+      background: #075b45;
+      color: white;
       padding: 20px;
-      min-height: 100vh;
     }
 
     #game-title {
       text-align: center;
       font-size: 48px;
-      color: white;
       margin-bottom: 20px;
       font-weight: bold;
-      letter-spacing: 3px;
     }
 
-    #instruction {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 20px;
+    #main {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
     }
 
     #crossword-container {
-      max-width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      scale: 0.85;
-      transform-origin: top center;
+      align-items: flex-end;
+      gap: 6px;
+      margin-top: 10px;
     }
 
     .crossword-row {
       display: flex;
       align-items: center;
-      margin-bottom: 8px;
+      height: 40px;
+    }
+
+    .crossword-row .number {
+      width: 28px;
+      text-align: right;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .spacer {
+      width: 40px;
+      height: 40px;
+      margin-right: 4px;
     }
 
     .letter-box {
-      width: 35px;
-      height: 35px;
+      width: 40px;
+      height: 40px;
       background: white;
       color: black;
-      font-size: 20px;
+      font-size: 24px;
       text-transform: uppercase;
       text-align: center;
       border-radius: 6px;
@@ -62,32 +69,14 @@
       border: none;
     }
 
-    .letter-box:focus {
-      outline: 2px solid #90ee90;
-    }
-
     .highlight {
       background-color: #90ee90 !important;
-    }
-
-    .spacer {
-      width: 39px;
-      height: 35px;
-      margin-right: 4px;
-    }
-
-    .hint-text {
-      font-size: 16px;
-      margin-bottom: 12px;
-      text-align: left;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .checkmark {
       font-size: 24px;
       margin-left: 10px;
+      width: 30px;
     }
 
     .success {
@@ -98,66 +87,54 @@
       color: #ff4c4c;
     }
 
+    #questions {
+      max-width: 500px;
+    }
+
+    .hint-text {
+      margin-bottom: 14px;
+      font-size: 16px;
+    }
+
     #buttons {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
+      text-align: center;
+      margin: 30px 0;
     }
 
     #buttons button {
-      padding: 15px 25px;
+      padding: 15px 30px;
       font-size: 20px;
-      font-weight: bold;
       background-color: #c0ff6a;
       color: #004d00;
       border: 4px solid white;
       border-radius: 12px;
       cursor: pointer;
-    }
-
-    #logo-section {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    #logo {
-      max-width: 300px;
-      width: 80%;
-      height: auto;
-    }
-
-    #website {
-      margin-top: 8px;
       font-weight: bold;
     }
 
     @media (max-width: 768px) {
-      #game-title {
-        font-size: 36px;
-      }
-
-      #instruction {
-        font-size: 16px;
+      #main {
+        flex-direction: column;
+        align-items: center;
       }
 
       .letter-box {
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
       }
 
       .spacer {
-        width: 32px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
       }
 
       .checkmark {
         font-size: 20px;
       }
 
-      #buttons button {
-        font-size: 18px;
-        padding: 12px 20px;
+      .hint-text {
+        font-size: 14px;
       }
     }
   </style>
@@ -165,51 +142,43 @@
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <p id="instruction">
-    <strong>Rozwiąż krzyżówkę i uzupełnij zdanie:</strong><br />
-    <span style="color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
-  </p>
+  <div id="main">
+    <div id="crossword-container"></div>
 
-  <div id="crossword-container"></div>
+    <div id="questions">
+      <p class="hint-text"><strong>1.</strong> Opakowanie na perfumy.</p>
+      <p class="hint-text"><strong>2.</strong> Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
+      <p class="hint-text"><strong>3.</strong> Miejsce, w którym produkowane są nowe butelki szklane?</p>
+      <p class="hint-text"><strong>4.</strong> Nazwa procesu ponownego przetwarzania odpadów.</p>
+      <p class="hint-text"><strong>5.</strong> Kolor pojemnika na szkło.</p>
+      <p class="hint-text"><strong>6.</strong> Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</p>
+      <p class="hint-text"><strong>7.</strong> Duży samochód odbierający odpady.</p>
+      <p class="hint-text"><strong>8.</strong> Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</p>
+      <p class="hint-text"><strong>9.</strong> Pojemnik na konfitury i przetwory.</p>
+      <p class="hint-text"><strong>10.</strong> Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</p>
+      <p class="hint-text"><strong>11.</strong> Miejsce, w którym sortowane są odpady.</p>
+      <p class="hint-text"><strong>12.</strong> Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</p>
+    </div>
+  </div>
 
   <div id="buttons">
     <button id="checkBtn">Zatwierdź</button>
   </div>
 
-  <div id="hints">
-    <p class="hint-text">1. Opakowanie na perfumy.</p>
-    <p class="hint-text">2. Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
-    <p class="hint-text">3. Miejsce, w którym produkowane są nowe butelki szklane?</p>
-    <p class="hint-text">4. Nazwa procesu ponownego przetwarzania odpadów.</p>
-    <p class="hint-text">5. Kolor pojemnika na szkło.</p>
-    <p class="hint-text">6. Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</p>
-    <p class="hint-text">7. Duży samochód odbierający odpady.</p>
-    <p class="hint-text">8. Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</p>
-    <p class="hint-text">9. Pojemnik na konfitury i przetwory.</p>
-    <p class="hint-text">10. Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</p>
-    <p class="hint-text">11. Miejsce, w którym sortowane są odpady.</p>
-    <p class="hint-text">12. Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</p>
-  </div>
-
-  <div id="logo-section">
-    <img src="img/Logo.png" alt="Logo gry" id="logo" />
-    <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-  </div>
-
   <script>
     const crosswordData = [
-      { answer: "FLAKON", highlight: 4 },
-      { answer: "PAPIER", highlight: 2 },
-      { answer: "HUTA", highlight: 3 },
-      { answer: "RECYKLING", highlight: 4 },
-      { answer: "ZIELONY", highlight: 4 },
-      { answer: "WAZON", highlight: 0 },
-      { answer: "ŚMIECIARKA", highlight: 6 },
-      { answer: "SZKLANKA", highlight: 5 },
-      { answer: "SŁOIK", highlight: 3 },
-      { answer: "ODKRĘCIĆ", highlight: 0 },
-      { answer: "SORTOWNIA", highlight: 5 },
-      { answer: "MYVIE", highlight: 4 },
+      { number: 1, answer: "FLAKON", highlight: 4 },
+      { number: 2, answer: "PAPIER", highlight: 2 },
+      { number: 3, answer: "HUTA", highlight: 3 },
+      { number: 4, answer: "RECYKLING", highlight: 4 },
+      { number: 5, answer: "ZIELONY", highlight: 4 },
+      { number: 6, answer: "WAZON", highlight: 0 },
+      { number: 7, answer: "ŚMIECIARKA", highlight: 6 },
+      { number: 8, answer: "SZKLANKA", highlight: 5 },
+      { number: 9, answer: "SŁOIK", highlight: 3 },
+      { number: 10, answer: "ODKRĘCIĆ", highlight: 0 },
+      { number: 11, answer: "SORTOWNIA", highlight: 5 },
+      { number: 12, answer: "MYVIE", highlight: 4 }
     ];
 
     const container = document.getElementById("crossword-container");
@@ -219,26 +188,25 @@
       row.classList.add("crossword-row");
       row.dataset.index = index;
 
+      const label = document.createElement("div");
+      label.classList.add("number");
+      label.textContent = word.number + ".";
+      row.appendChild(label);
+
       for (let i = 0; i < word.answer.length; i++) {
-        if (i < word.highlight) {
-          const spacer = document.createElement("div");
-          spacer.classList.add("spacer");
-          row.appendChild(spacer);
-        }
+        const box = document.createElement("input");
+        box.setAttribute("maxlength", "1");
+        box.classList.add("letter-box");
+        if (i === word.highlight) box.classList.add("highlight");
 
-        const input = document.createElement("input");
-        input.setAttribute("maxlength", "1");
-        input.classList.add("letter-box");
-        if (i === word.highlight) input.classList.add("highlight");
-
-        input.addEventListener("input", function () {
+        box.addEventListener("input", function () {
           if (this.value.length === 1) {
             const next = this.nextElementSibling;
             if (next && next.tagName === "INPUT") next.focus();
           }
         });
 
-        row.appendChild(input);
+        row.appendChild(box);
       }
 
       const checkmark = document.createElement("span");
@@ -252,7 +220,7 @@
       const rows = document.querySelectorAll(".crossword-row");
 
       rows.forEach((row, i) => {
-        const inputs = row.querySelectorAll("input");
+        const inputs = row.querySelectorAll("input.letter-box");
         let userAnswer = "";
         inputs.forEach((input) => {
           userAnswer += input.value.toUpperCase();

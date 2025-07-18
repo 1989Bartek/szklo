@@ -32,9 +32,11 @@
     #crossword-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 6px;
       margin-top: 10px;
+      scale: 0.95;
+      transform-origin: top left;
     }
 
     .crossword-row {
@@ -193,20 +195,26 @@
       label.textContent = word.number + ".";
       row.appendChild(label);
 
-      for (let i = 0; i < word.answer.length; i++) {
-        const box = document.createElement("input");
-        box.setAttribute("maxlength", "1");
-        box.classList.add("letter-box");
-        if (i === word.highlight) box.classList.add("highlight");
+      for (let i = 0; i < word.highlight; i++) {
+        const spacer = document.createElement("div");
+        spacer.classList.add("spacer");
+        row.appendChild(spacer);
+      }
 
-        box.addEventListener("input", function () {
+      for (let i = 0; i < word.answer.length; i++) {
+        const input = document.createElement("input");
+        input.setAttribute("maxlength", "1");
+        input.classList.add("letter-box");
+        if (i === word.highlight - word.highlight) input.classList.add("highlight");
+
+        input.addEventListener("input", function () {
           if (this.value.length === 1) {
             const next = this.nextElementSibling;
             if (next && next.tagName === "INPUT") next.focus();
           }
         });
 
-        row.appendChild(box);
+        row.appendChild(input);
       }
 
       const checkmark = document.createElement("span");

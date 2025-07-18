@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gra Memory – Szkło Must Go On</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -173,6 +174,7 @@
       display: none;
       text-align: center;
       margin-top: 40px;
+      animation: fadeIn 0.5s ease forwards;
     }
 
     #end-screen.visible {
@@ -180,18 +182,39 @@
     }
 
     #end-screen h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 32px;
+      color: #c0ff6a;
+      margin-bottom: 16px;
     }
 
     #end-screen p {
-      font-size: 18px;
-      margin-bottom: 15px;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
 
     #end-screen button {
-      padding: 10px 25px;
-      font-size: 16px;
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #end-screen button:hover {
+      background-color: #a2f5a2;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     @media (max-width: 1024px) {
@@ -242,10 +265,6 @@
         text-align: center;
       }
 
-      #logo-section {
-        order: 5;
-      }
-
       #logo {
         width: 80%;
       }
@@ -259,7 +278,6 @@
 <body>
   <h1 id="game-title">MEMORY</h1>
 
-  <!-- Instrukcja tylko dla widoku mobile/tablet -->
   <p id="instruction-mobile">
     Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
   </p>
@@ -270,7 +288,6 @@
     </div>
 
     <div id="right-panel">
-      <!-- Instrukcja dla desktopu -->
       <p id="instruction">
         Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
       </p>
@@ -280,19 +297,20 @@
       </div>
 
       <div id="timer">Czas: 0 s</div>
-
-      <div id="logo-section">
-        <img src="img/Logo.png" alt="Logo gry" id="logo" />
-        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-      </div>
     </div>
   </div>
 
   <div id="end-screen" class="hidden">
-    <h2>Gratulacje!</h2>
+    <h2>GRATULACJE!</h2>
     <p>Udało Ci się znaleźć wszystkie pary!</p>
-    <p id="final-time">Twój czas: 0 s</p>
-    <button onclick="restartGame()">Zagraj ponownie</button>
+    <p id="final-time">Twój czas: ...</p>
+    <button onclick="window.location.reload()">Zagraj ponownie</button>
+  </div>
+
+  <!-- ⬇️ PRZENIESIONA sekcja logo -->
+  <div id="logo-section">
+    <img src="img/Logo.png" alt="Logo gry" id="logo" />
+    <p id="website">WWW.SZKLOMUSTGOON.PL</p>
   </div>
 
   <script>
@@ -389,68 +407,20 @@
       clearInterval(timer);
     };
 
-    const restartGame = () => {
-      stopTimer();
-      seconds = 0;
-      timerDisplay.textContent = "Czas: 0 s";
-      matchedPairs = 0;
-      firstCard = null;
-      secondCard = null;
-      lockBoard = true;
-
-      const oldCards = Array.from(document.querySelectorAll(".card"));
-      const gridRect = gridContainer.getBoundingClientRect();
-      const centerX = gridRect.left + gridRect.width / 2;
-      const centerY = gridRect.top + gridRect.height / 2;
-
-      oldCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const offsetX = centerX - (rect.left + rect.width / 2);
-        const offsetY = centerY - (rect.top + rect.height / 2);
-        card.style.transition = "transform 0.5s ease-in-out";
-        card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
-
-      setTimeout(() => {
-        createBoard(true);
-        lockBoard = false;
-        startTimer();
-
-        const newCards = Array.from(document.querySelectorAll(".card"));
-        const newGridRect = gridContainer.getBoundingClientRect();
-        const centerX = newGridRect.left + newGridRect.width / 2;
-        const centerY = newGridRect.top + newGridRect.height / 2;
-
-        newCards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const offsetX = centerX - (rect.left + rect.width / 2);
-          const offsetY = centerY - (rect.top + rect.height / 2);
-          card.style.transition = "none";
-          card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        });
-
-        setTimeout(() => {
-          newCards.forEach(card => {
-            card.style.transition = "transform 0.6s ease-in-out";
-            card.style.transform = "translate(0, 0)";
-          });
-
-          setTimeout(() => {
-            newCards.forEach(card => {
-              card.style.transition = "";
-              card.style.transform = "";
-            });
-          }, 700);
-        }, 30);
-      }, 600);
-
-      endScreen.classList.remove("visible");
-    };
-
     const endGame = () => {
       stopTimer();
       finalTime.textContent = `Twój czas: ${seconds} s`;
+
+      document.getElementById("game-container").style.display = "none";
+      document.getElementById("instruction").style.display = "none";
+      document.getElementById("instruction-mobile").style.display = "none";
       endScreen.classList.add("visible");
+
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
     };
 
     startBtn.addEventListener("click", () => {
@@ -461,7 +431,7 @@
         startBtn.textContent = "Restart";
         started = true;
       } else {
-        restartGame();
+        window.location.reload();
       }
     });
 
@@ -471,4 +441,3 @@
   </script>
 </body>
 </html>
-

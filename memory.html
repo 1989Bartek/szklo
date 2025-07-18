@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -27,6 +28,14 @@
       font-weight: bold;
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #instruction-mobile {
+      display: none;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     #game-container {
@@ -177,19 +186,20 @@
       #right-panel {
         width: 100%;
       }
-      
+
       #left-panel {
         align-items: center;
-  }
+      }
 
       #instruction {
-        order: 1;
-        font-size: 18px;
-        margin-bottom: 20px;
+        display: none;
+      }
+
+      #instruction-mobile {
+        display: block;
       }
 
       #grid-container {
-        order: 2;
         grid-template-columns: repeat(4, 60px);
         grid-template-rows: repeat(4, 60px);
         gap: 8px;
@@ -202,7 +212,6 @@
       }
 
       #buttons {
-        order: 3;
         justify-content: center;
         width: 100%;
         margin-bottom: 10px;
@@ -213,7 +222,6 @@
       }
 
       #timer {
-        order: 4;
         margin-bottom: 20px;
         text-align: center;
       }
@@ -235,12 +243,18 @@
 <body>
   <h1 id="game-title">MEMORY</h1>
 
+  <!-- Instrukcja tylko dla widoku mobilnego -->
+  <p id="instruction-mobile">
+    Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
+  </p>
+
   <div id="game-container">
     <div id="left-panel">
       <div id="grid-container"></div>
     </div>
 
     <div id="right-panel">
+      <!-- Instrukcja dla desktopu -->
       <p id="instruction">
         Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
       </p>

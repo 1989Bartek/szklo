@@ -5,138 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gra Krzyżówka – Szkło Must Go On</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: Arial, sans-serif;
-      background: #075b45;
-      color: white;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
       padding: 20px;
+      min-height: 100vh;
     }
 
     #game-title {
       text-align: center;
-      font-size: 48px;
-      margin-bottom: 20px;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 30px;
       font-weight: bold;
+      letter-spacing: 4px;
     }
 
-    #main {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
+    #instruction-mobile {
+      display: none;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0 auto 20px;
+      max-width: 400px;
+      width: 80%;
     }
 
-    #crossword-container {
+    #game-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      margin-top: 10px;
-      scale: 0.95;
-      transform-origin: top left;
-    }
-
-    .crossword-row {
-      display: flex;
       align-items: center;
-      height: 40px;
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .crossword-row .number {
-      width: 28px;
-      text-align: right;
-      font-weight: bold;
-      margin-right: 5px;
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+      align-items: center;
     }
 
-    .spacer {
+    .cell {
       width: 40px;
       height: 40px;
-      margin-right: 4px;
-    }
-
-    .letter-box {
-      width: 40px;
-      height: 40px;
-      background: white;
-      color: black;
+      margin: 2px;
+      background-color: #222;
+      border: 2px solid #ccc;
+      text-align: center;
       font-size: 24px;
       text-transform: uppercase;
-      text-align: center;
-      border-radius: 6px;
-      margin-right: 4px;
+      color: white;
+    }
+
+    .cell input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
       border: none;
+      text-align: center;
+      font-size: 24px;
+      color: white;
+      outline: none;
     }
 
     .highlight {
       background-color: #90ee90 !important;
+      color: black;
     }
 
     .checkmark {
       font-size: 24px;
       margin-left: 10px;
-      width: 30px;
     }
 
-    .success {
-      color: #90ee90;
-    }
-
-    .error {
-      color: #ff4c4c;
-    }
-
-    #questions {
-      max-width: 500px;
-    }
-
-    .hint-text {
-      margin-bottom: 14px;
-      font-size: 16px;
+    .haslo {
+      text-align: left;
+      font-size: 18px;
+      margin: 8px 0;
     }
 
     #buttons {
-      text-align: center;
-      margin: 30px 0;
+      margin: 20px 0;
     }
 
     #buttons button {
-      padding: 15px 30px;
+      padding: 12px 30px;
       font-size: 20px;
+      font-weight: bold;
       background-color: #c0ff6a;
       color: #004d00;
       border: 4px solid white;
       border-radius: 12px;
       cursor: pointer;
+    }
+
+    #logo-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #logo {
+      max-width: 300px;
+      width: 80%;
+    }
+
+    #website {
       font-weight: bold;
+      margin-top: 10px;
     }
 
     @media (max-width: 768px) {
-      #main {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .letter-box {
+      .cell {
         width: 30px;
         height: 30px;
         font-size: 18px;
       }
 
-      .spacer {
-        width: 30px;
-        height: 30px;
+      .cell input {
+        font-size: 18px;
       }
 
-      .checkmark {
-        font-size: 20px;
-      }
-
-      .hint-text {
-        font-size: 14px;
+      .haslo {
+        font-size: 16px;
       }
     }
   </style>
@@ -144,112 +142,116 @@
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <div id="main">
-    <div id="crossword-container"></div>
+  <p id="instruction-mobile">
+    <span style="font-size: 20px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span style="font-size: 16px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
+  </p>
 
-    <div id="questions">
-      <p class="hint-text"><strong>1.</strong> Opakowanie na perfumy.</p>
-      <p class="hint-text"><strong>2.</strong> Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
-      <p class="hint-text"><strong>3.</strong> Miejsce, w którym produkowane są nowe butelki szklane?</p>
-      <p class="hint-text"><strong>4.</strong> Nazwa procesu ponownego przetwarzania odpadów.</p>
-      <p class="hint-text"><strong>5.</strong> Kolor pojemnika na szkło.</p>
-      <p class="hint-text"><strong>6.</strong> Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</p>
-      <p class="hint-text"><strong>7.</strong> Duży samochód odbierający odpady.</p>
-      <p class="hint-text"><strong>8.</strong> Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</p>
-      <p class="hint-text"><strong>9.</strong> Pojemnik na konfitury i przetwory.</p>
-      <p class="hint-text"><strong>10.</strong> Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</p>
-      <p class="hint-text"><strong>11.</strong> Miejsce, w którym sortowane są odpady.</p>
-      <p class="hint-text"><strong>12.</strong> Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</p>
+  <div id="game-container">
+    <!-- Tu zostanie dynamicznie dodana krzyżówka przez JS -->
+    <div id="crossword"></div>
+
+    <div id="buttons">
+      <button onclick="checkAnswers()">Zatwierdź</button>
     </div>
-  </div>
 
-  <div id="buttons">
-    <button id="checkBtn">Zatwierdź</button>
+    <div id="hints">
+      <p class="haslo">1. Opakowanie na perfumy.</p>
+      <p class="haslo">2. Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
+      <p class="haslo">3. Miejsce, w którym produkowane są nowe butelki szklane?</p>
+      <p class="haslo">4. Nazwa procesu ponownego przetwarzania odpadów.</p>
+      <p class="haslo">5. Kolor pojemnika na szkło.</p>
+      <p class="haslo">6. Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</p>
+      <p class="haslo">7. Duży samochód odbierający odpady.</p>
+      <p class="haslo">8. Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</p>
+      <p class="haslo">9. Pojemnik na konfitury i przetwory.</p>
+      <p class="haslo">10. Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</p>
+      <p class="haslo">11. Miejsce, w którym sortowane są odpady.</p>
+      <p class="haslo">12. Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</p>
+    </div>
+
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+    </div>
   </div>
 
   <script>
     const crosswordData = [
-      { number: 1, answer: "FLAKON", highlight: 4 },
-      { number: 2, answer: "PAPIER", highlight: 2 },
-      { number: 3, answer: "HUTA", highlight: 3 },
-      { number: 4, answer: "RECYKLING", highlight: 4 },
-      { number: 5, answer: "ZIELONY", highlight: 4 },
-      { number: 6, answer: "WAZON", highlight: 0 },
-      { number: 7, answer: "ŚMIECIARKA", highlight: 6 },
-      { number: 8, answer: "SZKLANKA", highlight: 5 },
-      { number: 9, answer: "SŁOIK", highlight: 3 },
-      { number: 10, answer: "ODKRĘCIĆ", highlight: 0 },
-      { number: 11, answer: "SORTOWNIA", highlight: 5 },
-      { number: 12, answer: "MYVIE", highlight: 4 }
+      { word: "FLAKON", clueIndex: 4 },
+      { word: "PAPIER", clueIndex: 2 },
+      { word: "HUTA", clueIndex: 3 },
+      { word: "RECYKLING", clueIndex: 4 },
+      { word: "ZIELONY", clueIndex: 4 },
+      { word: "WAZON", clueIndex: 0 },
+      { word: "SMIECIARKA", clueIndex: 6 },
+      { word: "SZKLANKA", clueIndex: 5 },
+      { word: "SLOIK", clueIndex: 3 },
+      { word: "ODKRECIC", clueIndex: 0 },
+      { word: "SORTOWNIA", clueIndex: 5 },
+      { word: "MYVIE", clueIndex: 4 }
     ];
 
-    const container = document.getElementById("crossword-container");
+    const crosswordContainer = document.getElementById("crossword");
 
-    crosswordData.forEach((word, index) => {
-      const row = document.createElement("div");
-      row.classList.add("crossword-row");
-      row.dataset.index = index;
+    function buildCrossword() {
+      crosswordData.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "row";
 
-      const label = document.createElement("div");
-      label.classList.add("number");
-      label.textContent = word.number + ".";
-      row.appendChild(label);
+        [...item.word].forEach((letter, i) => {
+          const cell = document.createElement("div");
+          cell.className = "cell";
 
-      for (let i = 0; i < word.highlight; i++) {
-        const spacer = document.createElement("div");
-        spacer.classList.add("spacer");
-        row.appendChild(spacer);
-      }
+          const input = document.createElement("input");
+          input.setAttribute("maxlength", "1");
+          input.dataset.row = index;
 
-      for (let i = 0; i < word.answer.length; i++) {
-        const input = document.createElement("input");
-        input.setAttribute("maxlength", "1");
-        input.classList.add("letter-box");
-        if (i === word.highlight - word.highlight) input.classList.add("highlight");
-
-        input.addEventListener("input", function () {
-          if (this.value.length === 1) {
-            const next = this.nextElementSibling;
-            if (next && next.tagName === "INPUT") next.focus();
+          if (i === item.clueIndex) {
+            cell.classList.add("highlight");
           }
+
+          input.addEventListener("input", function () {
+            if (this.value.length === 1) {
+              const inputs = row.querySelectorAll("input");
+              const next = inputs[i + 1];
+              if (next) next.focus();
+            }
+          });
+
+          cell.appendChild(input);
+          row.appendChild(cell);
         });
 
-        row.appendChild(input);
-      }
+        const feedback = document.createElement("span");
+        feedback.className = "checkmark";
+        row.appendChild(feedback);
 
-      const checkmark = document.createElement("span");
-      checkmark.classList.add("checkmark");
-      row.appendChild(checkmark);
+        crosswordContainer.appendChild(row);
+      });
+    }
 
-      container.appendChild(row);
-    });
+    function checkAnswers() {
+      const rows = document.querySelectorAll("#crossword .row");
+      rows.forEach((row, idx) => {
+        const inputs = row.querySelectorAll("input");
+        const guess = Array.from(inputs).map(inp => inp.value.toUpperCase()).join("");
+        const expected = crosswordData[idx].word;
+        const feedback = row.querySelector(".checkmark");
 
-    document.getElementById("checkBtn").addEventListener("click", () => {
-      const rows = document.querySelectorAll(".crossword-row");
-
-      rows.forEach((row, i) => {
-        const inputs = row.querySelectorAll("input.letter-box");
-        let userAnswer = "";
-        inputs.forEach((input) => {
-          userAnswer += input.value.toUpperCase();
-        });
-
-        const correct = crosswordData[i].answer;
-        const checkmark = row.querySelector(".checkmark");
-
-        if (userAnswer === correct) {
-          checkmark.textContent = "✅";
-          checkmark.className = "checkmark success";
+        if (guess === expected) {
+          feedback.textContent = "✅"; // zielony ptaszek
         } else {
-          checkmark.textContent = "❌";
-          checkmark.className = "checkmark error";
+          feedback.textContent = "❌"; // czerwony krzyżyk
           setTimeout(() => {
-            inputs.forEach((input) => input.value = "");
-            checkmark.textContent = "";
+            inputs.forEach(inp => inp.value = "");
+            feedback.textContent = "";
           }, 1000);
         }
       });
-    });
+    }
+
+    buildCrossword();
   </script>
 </body>
 </html>

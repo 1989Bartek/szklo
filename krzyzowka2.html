@@ -189,13 +189,13 @@
       { word: "FLAKON", clueIndex: 4 },
       { word: "PAPIER", clueIndex: 2 },
       { word: "HUTA", clueIndex: 3 },
-      { word: "RECYKLING", clueIndex: 4 },
-      { word: "ZIELONY", clueIndex: 4 },
-      { word: "WAZON", clueIndex: 0 },
+      { word: "RECYKLING", clueIndex: 5 },
+      { word: "ZIELONY", clueIndex: 5 },
+      { word: "WAZON", clueIndex: 1 },
       { word: "SMIECIARKA", clueIndex: 6 },
       { word: "SZKLANKA", clueIndex: 5 },
       { word: "SLOIK", clueIndex: 3 },
-      { word: "ODKRECIC", clueIndex: 0 },
+      { word: "ODKRECIC", clueIndex: 1 },
       { word: "SORTOWNIA", clueIndex: 5 },
       { word: "MYVIE", clueIndex: 4 }
     ];
@@ -265,9 +265,9 @@
         const feedback = row.querySelector(".checkmark");
 
         if (guess === expected) {
-          feedback.textContent = "✅"; // zielony ptaszek
+          feedback.textContent = "✅";
         } else {
-          feedback.textContent = "❌"; // czerwony krzyżyk
+          feedback.textContent = "❌";
           setTimeout(() => {
             inputs.forEach(inp => inp.value = "");
             feedback.textContent = "";

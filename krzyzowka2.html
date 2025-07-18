@@ -21,18 +21,26 @@
 
     #game-title {
       text-align: center;
-      font-size: 64px;
+      font-size: 48px;
       color: white;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-weight: bold;
-      letter-spacing: 4px;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+      letter-spacing: 3px;
     }
 
     #instruction {
       text-align: center;
-      font-size: 22px;
+      font-size: 18px;
       margin-bottom: 20px;
+    }
+
+    #crossword-container {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      scale: 0.85;
+      transform-origin: top center;
     }
 
     .crossword-row {
@@ -42,11 +50,11 @@
     }
 
     .letter-box {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       background: white;
       color: black;
-      font-size: 24px;
+      font-size: 20px;
       text-transform: uppercase;
       text-align: center;
       border-radius: 6px;
@@ -62,15 +70,32 @@
       background-color: #90ee90 !important;
     }
 
+    .spacer {
+      width: 39px;
+      height: 35px;
+      margin-right: 4px;
+    }
+
     .hint-text {
       font-size: 16px;
       margin-bottom: 12px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .checkmark {
       font-size: 24px;
-      color: #90ee90;
       margin-left: 10px;
+    }
+
+    .success {
+      color: #90ee90;
+    }
+
+    .error {
+      color: #ff4c4c;
     }
 
     #buttons {
@@ -96,7 +121,7 @@
     }
 
     #logo {
-      max-width: 400px;
+      max-width: 300px;
       width: 80%;
       height: auto;
     }
@@ -105,14 +130,44 @@
       margin-top: 8px;
       font-weight: bold;
     }
+
+    @media (max-width: 768px) {
+      #game-title {
+        font-size: 36px;
+      }
+
+      #instruction {
+        font-size: 16px;
+      }
+
+      .letter-box {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+      }
+
+      .spacer {
+        width: 32px;
+        height: 28px;
+      }
+
+      .checkmark {
+        font-size: 20px;
+      }
+
+      #buttons button {
+        font-size: 18px;
+        padding: 12px 20px;
+      }
+    }
   </style>
 </head>
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
   <p id="instruction">
-    <span style="font-size: 22px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span style="font-size: 18px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+    <strong>Rozwiąż krzyżówkę i uzupełnij zdanie:</strong><br />
+    <span style="color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
   </p>
 
   <div id="crossword-container"></div>
@@ -121,7 +176,7 @@
     <button id="checkBtn">Zatwierdź</button>
   </div>
 
-  <div id="hints" style="max-width: 600px; margin: auto;">
+  <div id="hints">
     <p class="hint-text">1. Opakowanie na perfumy.</p>
     <p class="hint-text">2. Jakie odpady wrzucamy do niebieskiego pojemnika.</p>
     <p class="hint-text">3. Miejsce, w którym produkowane są nowe butelki szklane?</p>
@@ -143,18 +198,18 @@
 
   <script>
     const crosswordData = [
-      { answer: "FLAKON", highlight: 4, solution: "O" },
-      { answer: "PAPIER", highlight: 2, solution: "P" },
-      { answer: "HUTA", highlight: 3, solution: "A" },
-      { answer: "RECYKLING", highlight: 4, solution: "K" },
-      { answer: "ZIELONY", highlight: 4, solution: "O" },
-      { answer: "WAZON", highlight: 0, solution: "W" },
-      { answer: "ŚMIECIARKA", highlight: 6, solution: "A" },
-      { answer: "SZKLANKA", highlight: 5, solution: "N" },
-      { answer: "SŁOIK", highlight: 3, solution: "I" },
-      { answer: "ODKRĘCIĆ", highlight: 0, solution: "O" },
-      { answer: "SORTOWNIA", highlight: 5, solution: "W" },
-      { answer: "MYVIE", highlight: 4, solution: "E" },
+      { answer: "FLAKON", highlight: 4 },
+      { answer: "PAPIER", highlight: 2 },
+      { answer: "HUTA", highlight: 3 },
+      { answer: "RECYKLING", highlight: 4 },
+      { answer: "ZIELONY", highlight: 4 },
+      { answer: "WAZON", highlight: 0 },
+      { answer: "ŚMIECIARKA", highlight: 6 },
+      { answer: "SZKLANKA", highlight: 5 },
+      { answer: "SŁOIK", highlight: 3 },
+      { answer: "ODKRĘCIĆ", highlight: 0 },
+      { answer: "SORTOWNIA", highlight: 5 },
+      { answer: "MYVIE", highlight: 4 },
     ];
 
     const container = document.getElementById("crossword-container");
@@ -165,6 +220,12 @@
       row.dataset.index = index;
 
       for (let i = 0; i < word.answer.length; i++) {
+        if (i < word.highlight) {
+          const spacer = document.createElement("div");
+          spacer.classList.add("spacer");
+          row.appendChild(spacer);
+        }
+
         const input = document.createElement("input");
         input.setAttribute("maxlength", "1");
         input.classList.add("letter-box");
@@ -173,7 +234,7 @@
         input.addEventListener("input", function () {
           if (this.value.length === 1) {
             const next = this.nextElementSibling;
-            if (next) next.focus();
+            if (next && next.tagName === "INPUT") next.focus();
           }
         });
 
@@ -197,15 +258,22 @@
           userAnswer += input.value.toUpperCase();
         });
 
+        const correct = crosswordData[i].answer;
         const checkmark = row.querySelector(".checkmark");
-        if (userAnswer === crosswordData[i].answer) {
+
+        if (userAnswer === correct) {
           checkmark.textContent = "✅";
+          checkmark.className = "checkmark success";
         } else {
-          checkmark.textContent = "";
+          checkmark.textContent = "❌";
+          checkmark.className = "checkmark error";
+          setTimeout(() => {
+            inputs.forEach((input) => input.value = "");
+            checkmark.textContent = "";
+          }, 1000);
         }
       });
     });
   </script>
 </body>
 </html>
-

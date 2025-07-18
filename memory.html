@@ -139,13 +139,7 @@
       color: #004d00;
       border: 4px solid white;
       border-radius: 12px;
-      transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #buttons button:hover {
-      background-color: #a2f5a2;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
     }
 
     #timer {
@@ -203,13 +197,23 @@
       color: #004d00;
       border: 4px solid white;
       border-radius: 12px;
-      transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    #end-screen button:hover {
-      background-color: #a2f5a2;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    #end-logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #end-logo-section img {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #end-logo-section p {
+      margin-top: 8px;
+      font-weight: bold;
     }
 
     @keyframes fadeIn {
@@ -276,6 +280,10 @@
       #website {
         font-size: 14px;
       }
+
+      #end-logo-section p {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -314,6 +322,11 @@
     <p>Udało Ci się znaleźć wszystkie pary!</p>
     <p id="final-time">Twój czas: ...</p>
     <button onclick="restartGame()">Zagraj ponownie</button>
+
+    <div id="end-logo-section">
+      <img src="img/Logo.png" alt="Logo gry" />
+      <p>WWW.SZKLOMUSTGOON.PL</p>
+    </div>
   </div>
 
   <script>
@@ -439,13 +452,13 @@
 
         const newCards = Array.from(document.querySelectorAll(".card"));
         const newGridRect = gridContainer.getBoundingClientRect();
-        const newCenterX = newGridRect.left + newGridRect.width / 2;
-        const newCenterY = newGridRect.top + newGridRect.height / 2;
+        const centerX = newGridRect.left + newGridRect.width / 2;
+        const centerY = newGridRect.top + newGridRect.height / 2;
 
         newCards.forEach(card => {
           const rect = card.getBoundingClientRect();
-          const offsetX = newCenterX - (rect.left + rect.width / 2);
-          const offsetY = newCenterY - (rect.top + rect.height / 2);
+          const offsetX = centerX - (rect.left + rect.width / 2);
+          const offsetY = centerY - (rect.top + rect.height / 2);
           card.style.transition = "none";
           card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
         });
@@ -502,4 +515,3 @@
   </script>
 </body>
 </html>
-

@@ -47,30 +47,30 @@
 
     #game-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
       gap: 30px;
       max-width: 1200px;
       margin: auto;
+      flex-wrap: wrap;
     }
 
     #left-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex: 1;
     }
 
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(20, minmax(0, 1fr));
-      gap: 3px;
-      width: 100%;
-      max-width: 800px;
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
     }
 
     .cell {
-      width: 100%;
-      aspect-ratio: 1/1;
       border: 1px solid white;
       background-color: transparent;
       display: flex;
@@ -81,7 +81,6 @@
     .cell input {
       width: 100%;
       height: 100%;
-      font-size: 1.8vw;
       text-align: center;
       border: none;
       background: transparent;
@@ -102,21 +101,30 @@
 
     .label {
       color: white;
-      font-size: 1.1vw;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 20px;
       width: 100%;
-      aspect-ratio: 1/1;
+      max-width: 800px;
+      text-align: left;
+    }
+
+    #questions ol {
+      padding-left: 20px;
     }
 
     #buttons {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 10px;
+      margin-top: 30px;
     }
 
     #buttons button {
@@ -133,29 +141,9 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    #right-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 800px;
-      width: 100%;
-      gap: 20px;
-    }
-
-    #questions {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    #questions ol {
-      padding-left: 20px;
-    }
-
     #logo-section {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     #logo {
@@ -169,13 +157,73 @@
       font-weight: bold;
     }
 
-    @media (max-width: 600px) {
+    /* ----- Komputery (większa siatka) ----- */
+    @media (min-width: 769px) {
+      #grid {
+        display: grid;
+        width: 720px;
+        grid-template-columns: repeat(20, 36px);
+        gap: 3px;
+      }
+
+      .cell {
+        width: 36px;
+        height: 36px;
+      }
+
       .cell input {
-        font-size: 4vw;
+        font-size: 20px;
       }
 
       .label {
-        font-size: 3vw;
+        font-size: 14px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    /* ----- Telefony (większa krzyżówka + pytania pod spodem) ----- */
+    @media (max-width: 1400px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #buttons {
+        order: 3;
+      }
+
+      #right-panel {
+        order: 2;
+        width: 100%;
+        max-width: 700px;
+        align-items: center;
+      }
+
+      #left-panel {
+        order: 1;
+      }
+
+      #grid {
+        display: grid;
+        width: 520px;
+        grid-template-columns: repeat(20, 26px);
+        gap: 2px;
+      }
+
+      .cell {
+        width: 26px;
+        height: 26px;
+      }
+
+      .cell input {
+        font-size: 16px;
+      }
+
+      .label {
+        font-size: 12px;
+        width: 26px;
+        height: 26px;
       }
 
       #buttons button {
@@ -183,7 +231,17 @@
       }
 
       #questions {
+        width: 100%;
+        font-size: 16px;
+        line-height: 1.5;
         text-align: left;
+        margin-top: 30px;
+        padding: 10px;
+      }
+
+      #logo-section {
+        order: 4;
+        margin-top: 30px;
       }
     }
   </style>
@@ -193,16 +251,12 @@
 
   <div id="main-instruction">
     <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span>Do zielonego pojemnika wyrzucamy tylko szkło <br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
   </div>
 
   <div id="game-container">
     <div id="left-panel">
       <div id="grid"></div>
-    </div>
-
-    <div id="buttons">
-      <button>Zatwierdź</button>
     </div>
 
     <div id="right-panel">
@@ -222,11 +276,15 @@
           <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
         </ol>
       </div>
+    </div>
 
-      <div id="logo-section">
-        <img src="img/Logo.png" alt="Logo gry" id="logo" />
-        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-      </div>
+    <div id="buttons">
+      <button>Zatwierdź</button>
+    </div>
+
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
 

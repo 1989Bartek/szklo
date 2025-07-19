@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Krzyżówka</title>
   <style>
     body {
       background-color: #0a1813;
       display: flex;
       justify-content: center;
-      align-items: center;
       padding: 40px;
       min-height: 100vh;
       font-family: sans-serif;
@@ -41,6 +40,11 @@
       font-size: 20px;
       color: white;
       text-transform: uppercase;
+      outline: none;
+    }
+
+    .cell input:focus {
+      outline: none;
     }
 
     .green {
@@ -53,15 +57,15 @@
       font-weight: bold;
     }
 
-    .number-label {
+    .label {
       color: white;
-      font-size: 18px;
-      text-align: right;
-      padding-right: 8px;
+      font-size: 16px;
+      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      width: 40px;
+      height: 40px;
     }
   </style>
 </head>
@@ -72,7 +76,7 @@
   <script>
     const grid = document.getElementById("grid");
 
-    // Konfiguracja 12 haseł: ile kratek po lewej i prawej stronie zielonej kratki
+    // Hasła: liczba kratek po lewej i prawej stronie zielonej kratki
     const rows = [
       { left: 4, right: 1 },
       { left: 2, right: 3 },
@@ -88,46 +92,77 @@
       { left: 4, right: 0 }
     ];
 
-    const greenColumn = 11; // kolumna z zieloną kratką, po lewej jest numer (kolumna 1)
+    const greenColumn = 11; // zielona kratka zawsze w kolumnie 11
+
+    const allInputs = []; // tablica na wszystkie inputy do obsługi automatycznego przechodzenia
 
     rows.forEach((row, rowIndex) => {
       const y = rowIndex + 1;
+      const inputRow = []; // inputy w danym wierszu
 
-      // Numer hasła
-      const number = document.createElement("div");
-      number.className = "number-label";
-      number.style.gridColumn = "1";
-      number.style.gridRow = `${y}`;
-      number.textContent = y;
-      grid.appendChild(number);
+      // Numer po lewej stronie
+      const label = document.createElement("div");
+      label.className = "label";
+      label.style.gridColumn = `${greenColumn - row.left - 1}`;
+      label.style.gridRow = `${y}`;
+      label.textContent = y;
+      grid.appendChild(label);
 
-      // Kratki po lewej
+      // Kratki po lewej stronie
       for (let i = 0; i < row.left; i++) {
+        const col = greenColumn - row.left + i;
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.style.gridColumn = `${greenColumn - row.left + i}`;
-        cell.style.gridRow = `${y}`;
-        cell.innerHTML = `<input maxlength="1">`;
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
+
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
         grid.appendChild(cell);
+
+        inputRow.push(input);
       }
 
       // Zielona kratka
-      const green = document.createElement("div");
-      green.className = "cell green";
-      green.style.gridColumn = `${greenColumn}`;
-      green.style.gridRow = `${y}`;
-      green.innerHTML = `<input maxlength="1">`;
-      grid.appendChild(green);
+      const greenCell = document.createElement("div");
+      greenCell.className = "cell green";
+      greenCell.style.gridColumn = greenColumn;
+      greenCell.style.gridRow = y;
 
-      // Kratki po prawej
+      const greenInput = document.createElement("input");
+      greenInput.maxLength = 1;
+      greenCell.appendChild(greenInput);
+      grid.appendChild(greenCell);
+
+      inputRow.push(greenInput);
+
+      // Kratki po prawej stronie
       for (let i = 0; i < row.right; i++) {
+        const col = greenColumn + 1 + i;
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.style.gridColumn = `${greenColumn + 1 + i}`;
-        cell.style.gridRow = `${y}`;
-        cell.innerHTML = `<input maxlength="1">`;
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
+
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
         grid.appendChild(cell);
+
+        inputRow.push(input);
       }
+
+      // Obsługa automatycznego przechodzenia w danym wierszu
+      inputRow.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length === 1 && index < inputRow.length - 1) {
+            inputRow[index + 1].focus();
+          }
+        });
+      });
+
+      allInputs.push(...inputRow);
     });
   </script>
 

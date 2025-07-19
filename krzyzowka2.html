@@ -2,58 +2,90 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Krzyżówka pionowa z numerami</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krzyżówka</title>
   <style>
     body {
-      background-color: black;
+      background-color: #0a1813;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .grid {
-      display: flex;
-      flex-direction: column;
-      gap: 5px; /* Odstęp między kratkami */
+      display: grid;
+      grid-template-columns: repeat(9, 40px);
+      grid-template-rows: repeat(13, 40px);
+      gap: 4px;
     }
 
     .cell {
-      position: relative;
       width: 40px;
       height: 40px;
-      background-color: #7ed957;
       border: 1px solid white;
       box-sizing: border-box;
+      background-color: transparent;
     }
 
-    .cell .number {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      font-size: 10px;
+    .green {
+      background-color: #7be15c;
+      border: 1px solid black;
+    }
+
+    .number {
       color: white;
-      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 2px;
+    }
+
+    .hidden {
+      visibility: hidden;
     }
   </style>
 </head>
 <body>
   <div class="grid">
-    <!-- Generujemy 12 pól z kolejnymi numerami -->
-    <div class="cell"><span class="number">1</span></div>
-    <div class="cell"><span class="number">2</span></div>
-    <div class="cell"><span class="number">3</span></div>
-    <div class="cell"><span class="number">4</span></div>
-    <div class="cell"><span class="number">5</span></div>
-    <div class="cell"><span class="number">6</span></div>
-    <div class="cell"><span class="number">7</span></div>
-    <div class="cell"><span class="number">8</span></div>
-    <div class="cell"><span class="number">9</span></div>
-    <div class="cell"><span class="number">10</span></div>
-    <div class="cell"><span class="number">11</span></div>
-    <div class="cell"><span class="number">12</span></div>
+    <!-- Rząd 1 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 2 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 3 -->
+    <div class="cell number">1</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 4 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 5 -->
+    <div class="cell number">2</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 6 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 7 -->
+    <div class="cell number">3</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 8 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 9 -->
+    <div class="cell number">4</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 10 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 11 -->
+    <div class="cell number">5</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 12 -->
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+
+    <!-- Rząd 13 -->
+    <div class="cell number">6</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
   </div>
 </body>
 </html>

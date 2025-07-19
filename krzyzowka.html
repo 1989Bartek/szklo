@@ -59,22 +59,21 @@
     #left-panel {
       display: flex;
       flex-direction: column;
-      max-width: 800px;
-      width: 100%;
     }
 
     #right-panel {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      width: 100%;
       max-width: 800px;
+      width: 100%;
+      gap: 20px;
     }
 
     #questions {
       font-size: 18px;
       line-height: 1.6;
-      width: 100%;
+      margin-bottom: 20px;
     }
 
     #questions ol {
@@ -85,7 +84,6 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 10px;
     }
 
     #buttons button {
@@ -104,7 +102,6 @@
     #logo-section {
       text-align: center;
       margin-top: 20px;
-      width: 100%;
     }
 
     #logo {
@@ -118,21 +115,6 @@
       font-weight: bold;
     }
 
-    @media (min-width: 1025px) {
-      #game-container {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-
-      #left-panel {
-        width: 800px;
-      }
-
-      #right-panel {
-        width: 800px;
-      }
-    }
-
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
@@ -141,6 +123,7 @@
 
       #right-panel {
         align-items: center;
+        width: 100%;
         order: 2;
       }
 
@@ -235,10 +218,6 @@
     </div>
 
     <div id="right-panel">
-      <div id="buttons">
-        <button>Zatwierdź</button>
-      </div>
-
       <div id="questions">
         <ol>
           <li>Opakowanie na perfumy.</li>
@@ -254,6 +233,10 @@
           <li>Miejsce, w którym sortowane są odpady.</li>
           <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
         </ol>
+      </div>
+
+      <div id="buttons">
+        <button>Zatwierdź</button>
       </div>
 
       <div id="logo-section">

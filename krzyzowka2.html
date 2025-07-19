@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Krzyżówka – Szkło Must Go On</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krzyżówka</title>
   <style>
     body {
       background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
@@ -15,153 +15,83 @@
       font-family: Arial, sans-serif;
     }
 
-    .crossword {
-      display: grid;
-      grid-template-columns: repeat(20, 40px); /* max szerokość = najdłuższe słowo + padding z lewej */
-      grid-auto-rows: 40px;
+    #grid {
+      display: flex;
+      flex-direction: column;
       gap: 4px;
+    }
+
+    .row {
+      display: flex;
     }
 
     .cell {
       width: 40px;
       height: 40px;
       border: 2px solid #ccc;
-      background-color: #111;
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 24px;
       font-weight: bold;
-      font-size: 22px;
-    }
-
-    .empty {
-      border: none;
-      background: none;
+      background-color: #111;
+      color: white;
     }
 
     .green {
       background-color: #00cc66;
     }
+
+    .placeholder {
+      border: none;
+      background: none;
+    }
   </style>
 </head>
 <body>
-  <div class="crossword">
-    <!-- 1. FLAKON - 6 liter, 5 litera (index 4) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">F</div>
-    <div class="cell">L</div>
-    <div class="cell">A</div>
-    <div class="cell">K</div>
-    <div class="cell green">O</div>
-    <div class="cell">N</div>
+  <div id="grid"></div>
 
-    <!-- 2. PAPIER - 6 liter, 3 litera (index 2) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">P</div>
-    <div class="cell">A</div>
-    <div class="cell green">P</div>
-    <div class="cell">I</div>
-    <div class="cell">E</div>
-    <div class="cell">R</div>
+  <script>
+    const words = [
+      { word: "FLAKON", clueIndex: 4 },
+      { word: "PAPIER", clueIndex: 2 },
+      { word: "HUTA", clueIndex: 3 },
+      { word: "RECYKLING", clueIndex: 4 },
+      { word: "ZIELONY", clueIndex: 4 },
+      { word: "WAZON", clueIndex: 0 },
+      { word: "ŚMIECIARKA", clueIndex: 6 },
+      { word: "SZKLANKA", clueIndex: 5 },
+      { word: "SŁOIK", clueIndex: 3 },
+      { word: "ODKRECIĆ", clueIndex: 0 },
+      { word: "SORTOWNIA", clueIndex: 5 },
+      { word: "MYVIE", clueIndex: 4 }
+    ];
 
-    <!-- 3. HUTA - 4 litery, 4 litera (index 3) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">H</div>
-    <div class="cell">U</div>
-    <div class="cell">T</div>
-    <div class="cell green">A</div>
+    const maxOffset = 6;
 
-    <!-- 4. RECYKLING - 9 liter, 5 litera (index 4) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">R</div>
-    <div class="cell">E</div>
-    <div class="cell">C</div>
-    <div class="cell">Y</div>
-    <div class="cell green">K</div>
-    <div class="cell">L</div>
-    <div class="cell">I</div>
-    <div class="cell">N</div>
-    <div class="cell">G</div>
+    const grid = document.getElementById("grid");
 
-    <!-- 5. ZIELONY - 7 liter, 5 litera (index 4) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">Z</div>
-    <div class="cell">I</div>
-    <div class="cell">E</div>
-    <div class="cell">L</div>
-    <div class="cell green">O</div>
-    <div class="cell">N</div>
-    <div class="cell">Y</div>
+    words.forEach((item) => {
+      const row = document.createElement("div");
+      row.classList.add("row");
 
-    <!-- 6. WAZON - 5 liter, 1 litera (index 0) -->
-    <div class="cell green">W</div>
-    <div class="cell">A</div>
-    <div class="cell">Z</div>
-    <div class="cell">O</div>
-    <div class="cell">N</div>
+      const paddingLeft = maxOffset - item.clueIndex;
 
-    <!-- 7. ŚMIECIARKA - 10 liter, 7 litera (index 6) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">Ś</div>
-    <div class="cell">M</div>
-    <div class="cell">I</div>
-    <div class="cell">E</div>
-    <div class="cell">C</div>
-    <div class="cell">I</div>
-    <div class="cell green">A</div>
-    <div class="cell">R</div>
-    <div class="cell">K</div>
-    <div class="cell">A</div>
+      for (let i = 0; i < paddingLeft; i++) {
+        const placeholder = document.createElement("div");
+        placeholder.className = "cell placeholder";
+        row.appendChild(placeholder);
+      }
 
-    <!-- 8. SZKLANKA - 8 liter, 6 litera (index 5) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">S</div>
-    <div class="cell">Z</div>
-    <div class="cell">K</div>
-    <div class="cell">L</div>
-    <div class="cell">A</div>
-    <div class="cell green">N</div>
-    <div class="cell">K</div>
-    <div class="cell">A</div>
+      [...item.word].forEach((letter, i) => {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        if (i === item.clueIndex) cell.classList.add("green");
+        row.appendChild(cell);
+      });
 
-    <!-- 9. SŁOIK - 5 liter, 4 litera (index 3) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">S</div>
-    <div class="cell">Ł</div>
-    <div class="cell">O</div>
-    <div class="cell green">I</div>
-    <div class="cell">K</div>
-
-    <!-- 10. ODKRĘCIĆ - 8 liter, 1 litera (index 0) -->
-    <div class="cell green">O</div>
-    <div class="cell">D</div>
-    <div class="cell">K</div>
-    <div class="cell">R</div>
-    <div class="cell">Ę</div>
-    <div class="cell">C</div>
-    <div class="cell">I</div>
-    <div class="cell">Ć</div>
-
-    <!-- 11. SORTOWNIA - 9 liter, 6 litera (index 5) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">S</div>
-    <div class="cell">O</div>
-    <div class="cell">R</div>
-    <div class="cell">T</div>
-    <div class="cell">O</div>
-    <div class="cell green">W</div>
-    <div class="cell">N</div>
-    <div class="cell">I</div>
-    <div class="cell">A</div>
-
-    <!-- 12. MYVIE - 5 liter, 5 litera (index 4) -->
-    <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div>
-    <div class="cell">M</div>
-    <div class="cell">Y</div>
-    <div class="cell">V</div>
-    <div class="cell">I</div>
-    <div class="cell green">E</div>
-  </div>
+      grid.appendChild(row);
+    });
+  </script>
 </body>
 </html>

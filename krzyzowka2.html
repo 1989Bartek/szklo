@@ -10,14 +10,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 40px;
       min-height: 100vh;
-      padding: 20px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(12, 40px);
-      grid-template-rows: repeat(12, 40px);
+      grid-auto-rows: 40px;
       gap: 4px;
     }
 
@@ -58,95 +58,127 @@
 </head>
 <body>
   <div class="grid">
-    <!-- Hasło 1: 3-✅-1 -->
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell green"><input maxlength="1" /></div>
+    <!-- Rząd 1: 4 lewe, zielona, 1 prawa -->
     <div class="cell"><input maxlength="1" /></div>
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
-
-    <!-- Hasło 2: 2-✅-3 -->
-    <div class="cell empty"></div><div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
     <div class="cell green"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div>
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
-
-    <!-- Hasło 3: 3-✅-0 -->
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div>
-    <div class="cell green"><input maxlength="1" /></div>
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Hasło 4: 4-✅-4 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell empty"></div>
+    <!-- Rząd 2: 2 lewe, zielona, 3 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div>
     <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
-
-    <!-- Hasło 5: 4-✅-2 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell empty"></div>
-    <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Hasło 6: 0-✅-4 -->
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+    <!-- Rząd 3: 3 lewe, zielona, 0 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div>
     <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Hasło 7: 6-✅-3 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell empty"></div><div class="cell empty"></div>
-
-    <!-- Hasło 8: 5-✅-2 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
+    <!-- Rząd 4: 4 lewe, zielona, 4 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
     <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Hasło 9: 3-✅-1 -->
-    <div class="cell empty"></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
+    <!-- Rząd 5: 4 lewe, zielona, 2 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Hasło 10: 0-✅-7 -->
+    <!-- Rząd 6: 0 lewe, zielona, 4 prawe -->
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
     <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
-
-    <!-- Hasło 11: 5-✅-3 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
     <div class="cell"><input maxlength="1" /></div>
-    <div class="cell green"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
-
-    <!-- Hasło 12: 4-✅-0 -->
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell"><input maxlength="1" /></div><div class="cell"><input maxlength="1" /></div>
-    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+
+    <!-- Rząd 7: 6 lewe, zielona, 3 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div>
+
+    <!-- Rząd 8: 5 lewe, zielona, 2 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
     <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+
+    <!-- Rząd 9: 3 lewe, zielona, 1 prawa -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+
+    <!-- Rząd 10: 0 lewe, zielona, 7 prawe -->
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+
+    <!-- Rząd 11: 5 lewe, zielona, 3 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+
+    <!-- Rząd 12: 4 lewe, zielona, 0 prawe -->
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
   </div>
 </body>
 </html>

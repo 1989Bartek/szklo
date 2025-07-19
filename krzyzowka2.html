@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gra Krzyżówka – Szkło Must Go On</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 20px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #main-instruction {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #main-instruction span:first-child {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #main-instruction span:last-child {
+      font-size: 18px;
+      color: #90ee90;
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    #left-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .cell {
+      border: 1px solid white;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cell input {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      border: none;
+      background: transparent;
+      color: white;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    .green {
+      background-color: #7be15c;
+      border: 1px solid black;
+    }
+
+    .green input {
+      color: black;
+      font-weight: bold;
+    }
+
+    .label {
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      text-align: left;
+    }
+
+    #questions ol {
+      padding-left: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    /* Komputery (większa siatka) */
+    #grid {
+      display: grid;
+      width: 720px;
+      grid-template-columns: repeat(20, 36px);
+      gap: 3px;
+    }
+
+    .cell {
+      width: 36px;
+      height: 36px;
+    }
+
+    .cell input {
+      font-size: 20px;
+    }
+
+    .label {
+      font-size: 14px;
+      width: 36px;
+      height: 36px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="game-title">KRZYŻÓWKA</h1>
+
+  <div id="main-instruction">
+    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+  </div>
+
+  <div id="game-container">
+    <div id="left-panel">
+      <div id="grid"></div>
+    </div>
+
+    <div id="right-panel">
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="buttons">
+      <button>Zatwierdź</button>
+    </div>
+
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    const rows = [
+      { left: 4, right: 1 },
+      { left: 2, right: 3 },
+      { left: 3, right: 0 },
+      { left: 4, right: 4 },
+      { left: 4, right: 2 },
+      { left: 0, right: 4 },
+      { left: 6, right: 3 },
+      { left: 5, right: 2 },
+      { left: 3, right: 1 },
+      { left: 0, right: 8 },
+      { left: 5, right: 3 },
+      { left: 4, right: 0 }
+    ];
+    const greenColumn = 11;
+
+    rows.forEach((row, rowIndex) => {
+      const y = rowIndex + 1;
+      const inputRow = [];
+
+      const label = document.createElement("div");
+      label.className = "label";
+      label.style.gridColumn = `${greenColumn - row.left - 1}`;
+      label.style.gridRow = `${y}`;
+      label.textContent = y;
+      grid.appendChild(label);
+
+      for (let i = 0; i < row.left; i++) {
+        const col = greenColumn - row.left + i;
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
+
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
+        grid.appendChild(cell);
+        inputRow.push(input);
+      }
+
+      const greenCell = document.createElement("div");
+      greenCell.className = "cell green";
+      greenCell.style.gridColumn = greenColumn;
+      greenCell.style.gridRow = y;
+
+      const greenInput = document.createElement("input");
+      greenInput.maxLength = 1;
+      greenCell.appendChild(greenInput);
+      grid.appendChild(greenCell);
+      inputRow.push(greenInput);
+
+      for (let i = 0; i < row.right; i++) {
+        const col = greenColumn + 1 + i;
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
+
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
+        grid.appendChild(cell);
+        inputRow.push(input);
+      }
+
+      inputRow.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length === 1 && index < inputRow.length - 1) {
+            inputRow[index + 1].focus();
+          }
+        });
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && input.value === "" && index > 0) {
+            e.preventDefault();
+            inputRow[index - 1].focus();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
 

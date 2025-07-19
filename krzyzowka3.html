@@ -47,19 +47,12 @@
 
     #game-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
       gap: 30px;
       max-width: 1200px;
       margin: auto;
-    }
-
-    #grid-and-questions {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      width: 100%;
-      justify-content: center;
       flex-wrap: wrap;
     }
 
@@ -67,6 +60,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex: 1;
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
     }
 
     #grid {
@@ -120,19 +121,12 @@
       aspect-ratio: 1/1;
     }
 
-    #right-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 800px;
-      width: 100%;
-      gap: 20px;
-    }
-
     #questions {
       font-size: 16px;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
       text-align: left;
     }
 
@@ -144,8 +138,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 10px;
+      margin-top: 30px;
     }
 
     #buttons button {
@@ -164,7 +157,7 @@
 
     #logo-section {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     #logo {
@@ -178,14 +171,24 @@
       font-weight: bold;
     }
 
-    @media (max-width: 900px) {
-      #grid-and-questions {
+    /* ----- RWD dla telefonów ----- */
+    @media (max-width: 768px) {
+      #game-container {
         flex-direction: column;
         align-items: center;
       }
 
-      #left-panel, #right-panel {
-        width: 100%;
+      #buttons {
+        order: 3;
+      }
+
+      #right-panel {
+        order: 2;
+        align-items: center;
+      }
+
+      #left-panel {
+        order: 1;
       }
 
       .cell input {
@@ -200,12 +203,14 @@
         width: 70%;
       }
 
-      #right-panel {
-        padding: 0 10px;
-      }
-
       #questions {
         text-align: left;
+        margin-top: 30px;
+      }
+
+      #logo-section {
+        order: 4;
+        margin-top: 30px;
       }
     }
   </style>
@@ -215,31 +220,30 @@
 
   <div id="main-instruction">
     <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span>Do zielonego pojemnika wyrzucamy tylko szkło <br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
   </div>
 
   <div id="game-container">
-    <div id="grid-and-questions">
-      <div id="left-panel">
-        <div id="grid"></div>
-      </div>
-      <div id="right-panel">
-        <div id="questions">
-          <ol>
-            <li>Opakowanie na perfumy.</li>
-            <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
-            <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
-            <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
-            <li>Kolor pojemnika na szkło.</li>
-            <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
-            <li>Duży samochód odbierający odpady.</li>
-            <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
-            <li>Pojemnik na konfitury i przetwory.</li>
-            <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
-            <li>Miejsce, w którym sortowane są odpady.</li>
-            <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
-          </ol>
-        </div>
+    <div id="left-panel">
+      <div id="grid"></div>
+    </div>
+
+    <div id="right-panel">
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
       </div>
     </div>
 

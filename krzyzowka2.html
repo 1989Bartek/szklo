@@ -16,8 +16,8 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(9, 40px);
-      grid-template-rows: repeat(13, 40px);
+      grid-template-columns: repeat(13, 40px);
+      grid-template-rows: repeat(12, 40px);
       gap: 4px;
     }
 
@@ -29,63 +29,170 @@
       background-color: transparent;
     }
 
+    .cell input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      text-align: center;
+      font-size: 20px;
+      color: white;
+      text-transform: uppercase;
+    }
+
     .green {
       background-color: #7be15c;
       border: 1px solid black;
     }
 
-    .number {
-      color: white;
-      font-size: 14px;
+    .green input {
+      color: black;
       font-weight: bold;
-      padding: 2px;
     }
 
-    .hidden {
-      visibility: hidden;
+    .empty {
+      border: none;
+      background: transparent;
     }
   </style>
 </head>
 <body>
   <div class="grid">
-    <!-- Rząd 1 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 1: hasło 1 – 5 liter (kolumny 4–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 2 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 2: hasło 2 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 3 -->
-    <div class="cell number">1</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 3: hasło 3 – 7 liter (kolumny 2–8) -->
+    <div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 4 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 4: hasło 4 – 7 liter (kolumny 2–8) -->
+    <div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 5 -->
-    <div class="cell number">2</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 5: hasło 5 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 6 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 6: hasło 6 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 7 -->
-    <div class="cell number">3</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 7: hasło 7 – 7 liter (kolumny 2–8) -->
+    <div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 8 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 8: hasło 8 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 9 -->
-    <div class="cell number">4</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 9: hasło 9 – 7 liter (kolumny 2–8) -->
+    <div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 10 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 10: hasło 10 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 11 -->
-    <div class="cell number">5</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 11: hasło 11 – 6 liter (kolumny 3–8) -->
+    <div class="cell empty"></div><div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
 
-    <!-- Rząd 12 -->
-    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-
-    <!-- Rząd 13 -->
-    <div class="cell number">6</div><div class="cell"></div><div class="cell"></div><div class="cell green"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    <!-- Rząd 12: hasło 12 – 7 liter (kolumny 2–8) -->
+    <div class="cell empty"></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell"><input maxlength="1" /></div>
+    <div class="cell green"><input maxlength="1" /></div>
+    <div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div>
   </div>
 </body>
 </html>

@@ -17,7 +17,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(20, 40px); /* dużo kolumn na zapas */
+      grid-template-columns: repeat(20, 40px);
       grid-auto-rows: 40px;
       gap: 4px;
     }
@@ -52,6 +52,17 @@
       color: black;
       font-weight: bold;
     }
+
+    .number-label {
+      color: white;
+      font-size: 18px;
+      text-align: right;
+      padding-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -77,38 +88,45 @@
       { left: 4, right: 0 }
     ];
 
-    const greenColumn = 10; // stała kolumna dla zielonych kratek
+    const greenColumn = 11; // kolumna z zieloną kratką, po lewej jest numer (kolumna 1)
 
     rows.forEach((row, rowIndex) => {
-      const totalCells = row.left + 1 + row.right;
-      const startColumn = greenColumn - row.left;
+      const y = rowIndex + 1;
 
-      // Dodaj kratki po lewej
+      // Numer hasła
+      const number = document.createElement("div");
+      number.className = "number-label";
+      number.style.gridColumn = "1";
+      number.style.gridRow = `${y}`;
+      number.textContent = y;
+      grid.appendChild(number);
+
+      // Kratki po lewej
       for (let i = 0; i < row.left; i++) {
-        const div = document.createElement("div");
-        div.className = "cell";
-        div.style.gridColumn = `${startColumn + i}`;
-        div.style.gridRow = `${rowIndex + 1}`;
-        div.innerHTML = `<input maxlength="1">`;
-        grid.appendChild(div);
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = `${greenColumn - row.left + i}`;
+        cell.style.gridRow = `${y}`;
+        cell.innerHTML = `<input maxlength="1">`;
+        grid.appendChild(cell);
       }
 
-      // Dodaj zieloną kratkę
+      // Zielona kratka
       const green = document.createElement("div");
       green.className = "cell green";
       green.style.gridColumn = `${greenColumn}`;
-      green.style.gridRow = `${rowIndex + 1}`;
+      green.style.gridRow = `${y}`;
       green.innerHTML = `<input maxlength="1">`;
       grid.appendChild(green);
 
-      // Dodaj kratki po prawej
+      // Kratki po prawej
       for (let i = 0; i < row.right; i++) {
-        const div = document.createElement("div");
-        div.className = "cell";
-        div.style.gridColumn = `${greenColumn + 1 + i}`;
-        div.style.gridRow = `${rowIndex + 1}`;
-        div.innerHTML = `<input maxlength="1">`;
-        grid.appendChild(div);
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = `${greenColumn + 1 + i}`;
+        cell.style.gridRow = `${y}`;
+        cell.innerHTML = `<input maxlength="1">`;
+        grid.appendChild(cell);
       }
     });
   </script>

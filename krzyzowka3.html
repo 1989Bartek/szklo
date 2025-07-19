@@ -47,100 +47,28 @@
 
     #game-container {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 40px;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
       max-width: 1200px;
       margin: auto;
+    }
+
+    #grid-and-questions {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      width: 100%;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
     #left-panel {
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
-    #right-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      max-width: 400px;
-      gap: 20px;
-    }
-
-    #questions {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    #questions ol {
-      padding-left: 20px;
-    }
-
-    #buttons {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    #buttons button {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #logo-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #logo {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #website {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    @media (max-width: 1024px) {
-      #game-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      #right-panel {
-        align-items: center;
-        width: 100%;
-        order: 2;
-      }
-
-      #questions {
-        text-align: left;
-        margin-top: 20px;
-      }
-
-      #buttons button {
-        width: 80%;
-      }
-
-      #logo-section {
-        order: 3;
-      }
-    }
-
-    /* --- KRZYŻÓWKA --- */
     #grid {
       display: grid;
       grid-template-columns: repeat(20, minmax(0, 1fr));
@@ -192,13 +120,92 @@
       aspect-ratio: 1/1;
     }
 
-    @media (max-width: 600px) {
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 800px;
+      width: 100%;
+      gap: 20px;
+    }
+
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    #questions ol {
+      padding-left: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      #grid-and-questions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #left-panel, #right-panel {
+        width: 100%;
+      }
+
       .cell input {
         font-size: 4vw;
       }
 
       .label {
         font-size: 3vw;
+      }
+
+      #buttons button {
+        width: 70%;
+      }
+
+      #right-panel {
+        padding: 0 10px;
+      }
+
+      #questions {
+        text-align: left;
       }
     }
   </style>
@@ -212,36 +219,37 @@
   </div>
 
   <div id="game-container">
-    <div id="left-panel">
-      <div id="grid"></div>
+    <div id="grid-and-questions">
+      <div id="left-panel">
+        <div id="grid"></div>
+      </div>
+      <div id="right-panel">
+        <div id="questions">
+          <ol>
+            <li>Opakowanie na perfumy.</li>
+            <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+            <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+            <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+            <li>Kolor pojemnika na szkło.</li>
+            <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+            <li>Duży samochód odbierający odpady.</li>
+            <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+            <li>Pojemnik na konfitury i przetwory.</li>
+            <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+            <li>Miejsce, w którym sortowane są odpady.</li>
+            <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+          </ol>
+        </div>
+      </div>
     </div>
 
-    <div id="right-panel">
-      <div id="buttons">
-        <button id="startBtn">Start</button>
-      </div>
+    <div id="buttons">
+      <button>Zatwierdź</button>
+    </div>
 
-      <div id="questions">
-        <ol>
-          <li>Opakowanie na perfumy.</li>
-          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
-          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
-          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
-          <li>Kolor pojemnika na szkło.</li>
-          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
-          <li>Duży samochód odbierający odpady.</li>
-          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
-          <li>Pojemnik na konfitury i przetwory.</li>
-          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
-          <li>Miejsce, w którym sortowane są odpady.</li>
-          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
-        </ol>
-      </div>
-
-      <div id="logo-section">
-        <img src="img/Logo.png" alt="Logo gry" id="logo" />
-        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-      </div>
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
 

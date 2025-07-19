@@ -70,8 +70,6 @@
       flex: 1;
     }
 
-    /* Krzyżówka – rozmiar domyślny zostaje pusty, wszystko ustawiamy przez media queries */
-
     .cell {
       border: 1px solid white;
       background-color: transparent;
@@ -184,8 +182,8 @@
       }
     }
 
-    /* ----- Telefony (mniejsza siatka) ----- */
-    @media (max-width: 768px) {
+    /* ----- Telefony (większa krzyżówka + pytania pod spodem) ----- */
+    @media (max-width: 1400px) {
       #game-container {
         flex-direction: column;
         align-items: center;
@@ -197,6 +195,8 @@
 
       #right-panel {
         order: 2;
+        width: 100%;
+        max-width: 700px;
         align-items: center;
       }
 
@@ -206,24 +206,24 @@
 
       #grid {
         display: grid;
-        width: 360px;
-        grid-template-columns: repeat(20, 18px);
+        width: 520px;
+        grid-template-columns: repeat(20, 26px);
         gap: 2px;
       }
 
       .cell {
-        width: 18px;
-        height: 18px;
+        width: 26px;
+        height: 26px;
       }
 
       .cell input {
-        font-size: 10px;
+        font-size: 16px;
       }
 
       .label {
-        font-size: 10px;
-        width: 18px;
-        height: 18px;
+        font-size: 12px;
+        width: 26px;
+        height: 26px;
       }
 
       #buttons button {
@@ -231,8 +231,12 @@
       }
 
       #questions {
+        width: 100%;
+        font-size: 16px;
+        line-height: 1.5;
         text-align: left;
         margin-top: 30px;
+        padding: 10px;
       }
 
       #logo-section {

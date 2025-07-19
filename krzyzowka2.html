@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Krzyżówka pionowa</title>
+  <title>Krzyżówka pionowa z numerami</title>
   <style>
     body {
       background-color: black;
@@ -21,27 +21,39 @@
     }
 
     .cell {
+      position: relative;
       width: 40px;
       height: 40px;
       background-color: #7ed957;
-      border: 1px solid black;
+      border: 1px solid white;
+      box-sizing: border-box;
+    }
+
+    .cell .number {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 10px;
+      color: white;
+      font-family: sans-serif;
     }
   </style>
 </head>
 <body>
   <div class="grid">
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+    <!-- Generujemy 12 pól z kolejnymi numerami -->
+    <div class="cell"><span class="number">1</span></div>
+    <div class="cell"><span class="number">2</span></div>
+    <div class="cell"><span class="number">3</span></div>
+    <div class="cell"><span class="number">4</span></div>
+    <div class="cell"><span class="number">5</span></div>
+    <div class="cell"><span class="number">6</span></div>
+    <div class="cell"><span class="number">7</span></div>
+    <div class="cell"><span class="number">8</span></div>
+    <div class="cell"><span class="number">9</span></div>
+    <div class="cell"><span class="number">10</span></div>
+    <div class="cell"><span class="number">11</span></div>
+    <div class="cell"><span class="number">12</span></div>
   </div>
 </body>
 </html>

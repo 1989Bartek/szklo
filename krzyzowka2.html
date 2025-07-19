@@ -50,7 +50,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 40px;
+      gap: 30px;
       max-width: 1200px;
       margin: auto;
       flex-wrap: wrap;
@@ -59,104 +59,20 @@
     #left-panel {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      flex: 1;
     }
 
     #right-panel {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      max-width: 400px;
-      gap: 20px;
+      align-items: center;
+      flex: 1;
     }
 
-    #questions {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    #questions ol {
-      padding-left: 20px;
-    }
-
-    #buttons {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    #buttons button {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #timer {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    #logo-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #logo {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #website {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    @media (max-width: 1024px) {
-      #game-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      #right-panel {
-        align-items: center;
-        width: 100%;
-      }
-
-      #questions {
-        text-align: left;
-        margin-top: 20px;
-      }
-
-      #buttons button {
-        width: 80%;
-      }
-
-      #timer {
-        margin-bottom: 20px;
-        text-align: center;
-      }
-    }
-
-    /* --- KRZYŻÓWKA --- */
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(20, minmax(0, 1fr));
-      gap: 4px;
-      width: 100%;
-      max-width: 800px;
-    }
+    /* Krzyżówka – rozmiar domyślny zostaje pusty, wszystko ustawiamy przez media queries */
 
     .cell {
-      width: 100%;
-      aspect-ratio: 1/1;
       border: 1px solid white;
       background-color: transparent;
       display: flex;
@@ -167,7 +83,6 @@
     .cell input {
       width: 100%;
       height: 100%;
-      font-size: 2vw;
       text-align: center;
       border: none;
       background: transparent;
@@ -188,22 +103,141 @@
 
     .label {
       color: white;
-      font-size: 1.3vw;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      aspect-ratio: 1/1;
     }
 
-    @media (max-width: 600px) {
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      text-align: left;
+    }
+
+    #questions ol {
+      padding-left: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    /* ----- Komputery (większa siatka) ----- */
+    @media (min-width: 769px) {
+      #grid {
+        display: grid;
+        width: 720px;
+        grid-template-columns: repeat(20, 36px);
+        gap: 3px;
+      }
+
+      .cell {
+        width: 36px;
+        height: 36px;
+      }
+
       .cell input {
-        font-size: 4vw;
+        font-size: 20px;
       }
 
       .label {
-        font-size: 3vw;
+        font-size: 14px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    /* ----- Telefony (mniejsza siatka) ----- */
+    @media (max-width: 768px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #buttons {
+        order: 3;
+      }
+
+      #right-panel {
+        order: 2;
+        align-items: center;
+      }
+
+      #left-panel {
+        order: 1;
+      }
+
+      #grid {
+        display: grid;
+        width: 360px;
+        grid-template-columns: repeat(20, 18px);
+        gap: 2px;
+      }
+
+      .cell {
+        width: 18px;
+        height: 18px;
+      }
+
+      .cell input {
+        font-size: 10px;
+      }
+
+      .label {
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+      }
+
+      #buttons button {
+        width: 70%;
+      }
+
+      #questions {
+        text-align: left;
+        margin-top: 30px;
+      }
+
+      #logo-section {
+        order: 4;
+        margin-top: 30px;
       }
     }
   </style>
@@ -213,7 +247,7 @@
 
   <div id="main-instruction">
     <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span>Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _</span>
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
   </div>
 
   <div id="game-container">
@@ -222,12 +256,6 @@
     </div>
 
     <div id="right-panel">
-      <div id="buttons">
-        <button id="startBtn">Start</button>
-      </div>
-
-      <div id="timer">Czas: 0 s</div>
-
       <div id="questions">
         <ol>
           <li>Opakowanie na perfumy.</li>
@@ -244,11 +272,15 @@
           <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
         </ol>
       </div>
+    </div>
 
-      <div id="logo-section">
-        <img src="img/Logo.png" alt="Logo gry" id="logo" />
-        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-      </div>
+    <div id="buttons">
+      <button>Zatwierdź</button>
+    </div>
+
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
 

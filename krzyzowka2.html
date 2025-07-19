@@ -22,7 +22,7 @@
 
     #game-title {
       text-align: center;
-      font-size: 48px;
+      font-size: 64px;
       color: white;
       margin-bottom: 20px;
       font-weight: bold;
@@ -33,6 +33,7 @@
     #instruction-box {
       text-align: center;
       margin-bottom: 20px;
+      display: none;
     }
 
     #instruction-box span:first-child {
@@ -52,21 +53,30 @@
       flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: 30px;
-      flex-wrap: wrap;
+      gap: 40px;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: auto;
+      flex-wrap: wrap;
     }
 
     #left-panel,
     #right-panel {
-      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(20, 36px);
+      gap: 3px;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
     .cell {
+      width: 36px;
+      height: 36px;
       border: 1px solid white;
       background-color: transparent;
       display: flex;
@@ -83,6 +93,7 @@
       color: white;
       text-transform: uppercase;
       outline: none;
+      font-size: 20px;
     }
 
     .green {
@@ -96,38 +107,29 @@
     }
 
     .label {
+      font-size: 14px;
       color: white;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    #questions {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-top: 20px;
-      width: 100%;
-      max-width: 800px;
-      text-align: left;
-    }
-
-    #questions ol {
-      padding-left: 20px;
+      width: 36px;
+      height: 36px;
     }
 
     #buttons {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 30px;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
     #buttons button {
       width: 80%;
       max-width: 400px;
       padding: 15px 20px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
       background-color: #c0ff6a;
@@ -139,7 +141,7 @@
 
     #logo-section {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
     #logo {
@@ -153,34 +155,28 @@
       font-weight: bold;
     }
 
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(20, 36px);
-      gap: 3px;
-      width: fit-content;
-      margin: 0 auto;
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 40px auto 20px;
+      width: 100%;
+      max-width: 800px;
+      text-align: left;
     }
 
-    .cell {
-      width: 36px;
-      height: 36px;
+    #questions ol {
+      padding-left: 20px;
     }
 
-    .cell input {
-      font-size: 20px;
-    }
-
-    .label {
-      font-size: 14px;
-      width: 36px;
-      height: 36px;
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
         align-items: center;
         gap: 20px;
+      }
+
+      #instruction-box {
+        display: block;
       }
 
       #grid {
@@ -220,10 +216,23 @@
       #questions {
         font-size: 15px;
         padding: 10px;
+        text-align: center;
       }
 
       #buttons button {
         font-size: 16px;
+      }
+
+      #logo-section {
+        order: 5;
+      }
+
+      #logo {
+        width: 80%;
+      }
+
+      #website {
+        font-size: 14px;
       }
     }
   </style>
@@ -231,34 +240,17 @@
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
+  <div id="instruction-box">
+    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span>
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+  </div>
+
   <div id="game-container">
     <div id="left-panel">
       <div id="grid"></div>
-
-      <div id="questions">
-        <ol>
-          <li>Opakowanie na perfumy.</li>
-          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
-          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
-          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
-          <li>Kolor pojemnika na szkło.</li>
-          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
-          <li>Duży samochód odbierający odpady.</li>
-          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
-          <li>Pojemnik na konfitury i przetwory.</li>
-          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
-          <li>Miejsce, w którym sortowane są odpady.</li>
-          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
-        </ol>
-      </div>
     </div>
 
     <div id="right-panel">
-      <div id="instruction-box">
-        <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span>
-        <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
-      </div>
-
       <div id="buttons">
         <button>Zatwierdź</button>
       </div>
@@ -268,6 +260,23 @@
         <p id="website">WWW.SZKLOMUSTGOON.PL</p>
       </div>
     </div>
+  </div>
+
+  <div id="questions">
+    <ol>
+      <li>Opakowanie na perfumy.</li>
+      <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+      <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+      <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+      <li>Kolor pojemnika na szkło.</li>
+      <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+      <li>Duży samochód odbierający odpady.</li>
+      <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+      <li>Pojemnik na konfitury i przetwory.</li>
+      <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+      <li>Miejsce, w którym sortowane są odpady.</li>
+      <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+    </ol>
   </div>
 
   <script>

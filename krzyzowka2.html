@@ -12,11 +12,15 @@
       padding: 0;
     }
 
+    html {
+      font-size: 16px;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
       color: #e2e2e2;
-      padding: 20px;
+      padding: 20px 10px;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -57,8 +61,17 @@
       flex-wrap: wrap;
     }
 
-    #left-panel,
+    #left-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
     #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       flex: 1;
     }
 
@@ -68,8 +81,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30px;
-      height: 30px;
     }
 
     .cell input {
@@ -81,7 +92,6 @@
       color: white;
       text-transform: uppercase;
       outline: none;
-      font-size: 16px;
     }
 
     .green {
@@ -100,158 +110,202 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      width: 30px;
-      height: 30px;
     }
 
-    .question-block {
-      margin-bottom: 20px;
+    #questions {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      text-align: left;
     }
 
-    .answer-row {
+    #questions ol {
+      padding-left: 20px;
+    }
+
+    #buttons {
       display: flex;
-      gap: 10px;
-      margin-top: 5px;
       justify-content: center;
+      width: 100%;
+      margin-top: 30px;
     }
 
-    .answer-row input {
-      flex: 0 0 50%;
-      padding: 6px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 2px solid #ccc;
-      text-transform: uppercase;
-    }
-
-    .answer-row button {
-      padding: 6px 12px;
-      font-size: 14px;
-      background-color: #c0ff6a;
-      border: 2px solid white;
-      border-radius: 8px;
-      cursor: pointer;
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
       font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
       color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    .answer-row input:disabled {
-      background-color: #e0e0e0;
-      color: #999;
+    #logo-section {
+      text-align: center;
+      margin-top: 30px;
     }
 
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(20, 30px);
-      gap: 3px;
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
     }
 
-    /* MOBILE RESPONSIVE */
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    /* ----- Komputery (większa siatka) ----- */
+    @media (min-width: 769px) {
+      #grid {
+        display: grid;
+        width: 720px;
+        grid-template-columns: repeat(20, 36px);
+        gap: 3px;
+      }
+
+      .cell {
+        width: 36px;
+        height: 36px;
+      }
+
+      .cell input {
+        font-size: 20px;
+      }
+
+      .label {
+        font-size: 14px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    /* ----- Telefony (elastyczna siatka i układ kolumnowy) ----- */
     @media (max-width: 768px) {
+      html {
+        font-size: 14px;
+      }
+
       #game-container {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      #grid {
+        width: 90vw;
+        grid-template-columns: repeat(20, 4.5vw);
+        gap: 1.2vw;
+      }
+
+      .cell {
+        width: 4.5vw;
+        height: 4.5vw;
+      }
+
+      .cell input {
+        font-size: 4vw;
+      }
+
+      .label {
+        font-size: 3.2vw;
+        width: 4.5vw;
+        height: 4.5vw;
       }
 
       #right-panel {
         width: 100%;
-        max-width: 400px;
-        text-align: center;
+        max-width: 100%;
+        padding: 0 5vw;
       }
 
       #questions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        padding: 10px;
+        font-size: 15px;
       }
 
-      #grid {
-        grid-template-columns: repeat(20, 22px);
-        gap: 2px;
+      #buttons button {
+        width: 80%;
       }
 
-      .cell,
-      .label {
-        width: 22px;
-        height: 22px;
-      }
-
-      .cell input {
-        font-size: 12px;
-      }
-
-      .label {
-        font-size: 10px;
-      }
-
-      .answer-row input {
-        font-size: 12px;
-        padding: 4px;
-        flex: 0 0 60%;
-      }
-
-      .answer-row button {
-        font-size: 12px;
-        padding: 4px 8px;
-      }
-
-      #game-title {
-        font-size: 42px;
-      }
-
-      #main-instruction span:first-child {
-        font-size: 18px;
-      }
-
-      #main-instruction span:last-child {
-        font-size: 16px;
+      #logo {
+        max-width: 80vw;
       }
     }
   </style>
 </head>
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
+
   <div id="main-instruction">
     <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
     <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
   </div>
+
   <div id="game-container">
     <div id="left-panel">
       <div id="grid"></div>
     </div>
+
     <div id="right-panel">
-      <div id="questions"></div>
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="buttons">
+      <button>Zatwierdź</button>
+    </div>
+
+    <div id="logo-section">
+      <img src="img/Logo.png" alt="Logo gry" id="logo" />
+      <p id="website">WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
+
   <script>
     const grid = document.getElementById("grid");
-    const questionsContainer = document.getElementById("questions");
     const rows = [
-      { left: 4, right: 1 }, { left: 2, right: 3 }, { left: 3, right: 0 }, { left: 4, right: 4 },
-      { left: 4, right: 2 }, { left: 0, right: 4 }, { left: 6, right: 3 }, { left: 5, right: 2 },
-      { left: 3, right: 1 }, { left: 0, right: 8 }, { left: 5, right: 3 }, { left: 4, right: 0 }
-    ];
-    const questions = [
-      "Opakowanie na perfumy.",
-      "Jakie odpady wrzucamy do niebieskiego pojemnika.",
-      "Miejsce, w którym produkowane są nowe butelki szklane?",
-      "Nazwa procesu ponownego przetwarzania odpadów.",
-      "Kolor pojemnika na szkło.",
-      "Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.",
-      "Duży samochód odbierający odpady.",
-      "Służy do picia, ale wyrzucamy ją do czarnego pojemnika.",
-      "Pojemnik na konfitury i przetwory.",
-      "Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?",
-      "Miejsce, w którym sortowane są odpady.",
-      "Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody."
+      { left: 4, right: 1 },
+      { left: 2, right: 3 },
+      { left: 3, right: 0 },
+      { left: 4, right: 4 },
+      { left: 4, right: 2 },
+      { left: 0, right: 4 },
+      { left: 6, right: 3 },
+      { left: 5, right: 2 },
+      { left: 3, right: 1 },
+      { left: 0, right: 8 },
+      { left: 5, right: 3 },
+      { left: 4, right: 0 }
     ];
     const greenColumn = 11;
-    const allInputs = [];
 
     rows.forEach((row, rowIndex) => {
       const y = rowIndex + 1;
       const inputRow = [];
+
       const label = document.createElement("div");
       label.className = "label";
       label.style.gridColumn = `${greenColumn - row.left - 1}`;
@@ -265,9 +319,9 @@
         cell.className = "cell";
         cell.style.gridColumn = col;
         cell.style.gridRow = y;
+
         const input = document.createElement("input");
         input.maxLength = 1;
-        input.disabled = true;
         cell.appendChild(input);
         grid.appendChild(cell);
         inputRow.push(input);
@@ -277,9 +331,9 @@
       greenCell.className = "cell green";
       greenCell.style.gridColumn = greenColumn;
       greenCell.style.gridRow = y;
+
       const greenInput = document.createElement("input");
       greenInput.maxLength = 1;
-      greenInput.disabled = true;
       greenCell.appendChild(greenInput);
       grid.appendChild(greenCell);
       inputRow.push(greenInput);
@@ -290,46 +344,27 @@
         cell.className = "cell";
         cell.style.gridColumn = col;
         cell.style.gridRow = y;
+
         const input = document.createElement("input");
         input.maxLength = 1;
-        input.disabled = true;
         cell.appendChild(input);
         grid.appendChild(cell);
         inputRow.push(input);
       }
-      allInputs.push(inputRow);
-    });
 
-    questions.forEach((text, i) => {
-      const block = document.createElement("div");
-      block.className = "question-block";
-
-      const label = document.createElement("label");
-      label.textContent = `${i + 1}. ${text}`;
-      block.appendChild(label);
-
-      const row = document.createElement("div");
-      row.className = "answer-row";
-
-      const input = document.createElement("input");
-      input.id = `answer${i}`;
-
-      const button = document.createElement("button");
-      button.textContent = "Zatwierdź";
-      button.onclick = () => {
-        const answer = input.value.trim().toUpperCase();
-        const rowInputs = allInputs[i];
-        for (let j = 0; j < rowInputs.length; j++) {
-          rowInputs[j].value = answer[j] || "";
-        }
-        input.disabled = true;
-        button.disabled = true;
-      };
-
-      row.appendChild(input);
-      row.appendChild(button);
-      block.appendChild(row);
-      questionsContainer.appendChild(block);
+      inputRow.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length === 1 && index < inputRow.length - 1) {
+            inputRow[index + 1].focus();
+          }
+        });
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && input.value === "" && index > 0) {
+            e.preventDefault();
+            inputRow[index - 1].focus();
+          }
+        });
+      });
     });
   </script>
 </body>

@@ -3,220 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gra Krzyżówka – Szkło Must Go On</title>
+  <title>Krzyżówka pionowa</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: Arial, sans-serif;
-      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
-      color: #e2e2e2;
-      padding: 20px;
-      min-height: 100vh;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    #game-title {
-      text-align: center;
-      font-size: 64px;
-      color: white;
-      margin-bottom: 30px;
-      font-weight: bold;
-      letter-spacing: 4px;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-    }
-
-    #instruction-mobile {
-      font-size: 18px;
-      line-height: 1.6;
-      text-align: center;
-      margin: 0 auto 20px;
-      max-width: 600px;
-      width: 90%;
-    }
-
-    #game-container {
+    .grid {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 30px;
+      gap: 5px; /* Odstęp między kratkami */
     }
 
-    .row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .label {
-      width: 100px;
-      text-align: right;
-      margin-right: 10px;
-    }
-
-    .word {
-      display: flex;
-      gap: 5px;
-    }
-
-    .word input {
-      width: 32px;
-      height: 32px;
-      font-size: 20px;
-      text-align: center;
-      border: 2px solid white;
-      border-radius: 4px;
-      background-color: #1b1b1b;
-      color: white;
-    }
-
-    .highlight {
-      background-color: #90ee90;
-      color: black;
-    }
-
-    .checkmark {
-      margin-left: 10px;
-      font-size: 24px;
-      color: #90ee90;
-    }
-
-    #buttons button {
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
-    }
-
-    #logo-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #logo {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #website {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    #questions {
-      max-width: 800px;
-      margin: 40px auto 0;
-      font-size: 18px;
-      line-height: 1.6;
+    .cell {
+      width: 40px;
+      height: 40px;
+      background-color: #7ed957;
+      border: 1px solid black;
     }
   </style>
 </head>
 <body>
-  <h1 id="game-title">KRZYŻÓWKA</h1>
-  <p id="instruction-mobile">
-    <span style="font-size: 20px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span style="font-size: 16px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
-  </p>
-  <div id="game-container"></div>
-  <div id="buttons">
-    <button id="submitBtn">Zatwierdź</button>
+  <div class="grid">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
   </div>
-  <div id="logo-section">
-    <img src="img/Logo.png" alt="Logo gry" id="logo" />
-    <p id="website">WWW.SZKLOMUSTGOON.PL</p>
-  </div>
-  <div id="questions">
-    <ol>
-      <li>Opakowanie na perfumy.</li>
-      <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
-      <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
-      <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
-      <li>Kolor pojemnika na szkło.</li>
-      <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
-      <li>Duży samochód odbierający odpady.</li>
-      <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
-      <li>Pojemnik na konfitury i przetwory.</li>
-      <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
-      <li>Miejsce, w którym sortowane są odpady.</li>
-      <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
-    </ol>
-  </div>
-  <script>
-    const words = [
-      { answer: "FLAKON", highlight: 4, clue: 0 },
-      { answer: "PAPIER", highlight: 2, clue: 1 },
-      { answer: "HUTA", highlight: 3, clue: 2 },
-      { answer: "RECYKLING", highlight: 4, clue: 3 },
-      { answer: "ZIELONY", highlight: 4, clue: 4 },
-      { answer: "WAZON", highlight: 0, clue: 5 },
-      { answer: "SMIECIARKA", highlight: 6, clue: 6 },
-      { answer: "SZKLANKA", highlight: 5, clue: 7 },
-      { answer: "SLOIK", highlight: 3, clue: 8 },
-      { answer: "ODKRECIC", highlight: 0, clue: 9 },
-      { answer: "SORTOWNIA", highlight: 5, clue: 10 },
-      { answer: "MYVIE", highlight: 4, clue: 11 }
-    ];
-
-    const container = document.getElementById("game-container");
-
-    words.forEach((word, index) => {
-      const row = document.createElement("div");
-      row.className = "row";
-
-      const label = document.createElement("div");
-      label.className = "label";
-      label.textContent = `${index + 1}.`;
-
-      const wordDiv = document.createElement("div");
-      wordDiv.className = "word";
-
-      for (let i = 0; i < word.answer.length; i++) {
-        const input = document.createElement("input");
-        input.maxLength = 1;
-        input.dataset.index = i;
-        if (i === word.highlight) input.classList.add("highlight");
-        wordDiv.appendChild(input);
-      }
-
-      const checkmark = document.createElement("span");
-      checkmark.className = "checkmark";
-      checkmark.textContent = "✅";
-      checkmark.style.display = "none";
-      row.appendChild(label);
-      row.appendChild(wordDiv);
-      row.appendChild(checkmark);
-      container.appendChild(row);
-    });
-
-    document.querySelectorAll("input").forEach((input, idx, all) => {
-      input.addEventListener("input", () => {
-        if (input.value && all[idx + 1]) all[idx + 1].focus();
-      });
-    });
-
-    document.getElementById("submitBtn").addEventListener("click", () => {
-      const rows = container.querySelectorAll(".row");
-      rows.forEach((row, i) => {
-        const inputs = row.querySelectorAll("input");
-        const attempt = Array.from(inputs).map(i => i.value.toUpperCase()).join("");
-        const checkmark = row.querySelector(".checkmark");
-        if (attempt === words[i].answer) {
-          checkmark.style.display = "inline";
-        } else {
-          checkmark.style.display = "none";
-        }
-      });
-    });
-  </script>
 </body>
 </html>

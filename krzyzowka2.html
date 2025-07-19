@@ -11,13 +11,16 @@
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: Arial, sans-serif;
       background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
       color: #e2e2e2;
       padding: 20px;
       min-height: 100vh;
+      overflow-x: hidden;
     }
+
     #game-title {
       text-align: center;
       font-size: 64px;
@@ -27,18 +30,22 @@
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
+
     #main-instruction {
       text-align: center;
       margin-bottom: 30px;
     }
+
     #main-instruction span:first-child {
       font-size: 22px;
       font-weight: bold;
     }
+
     #main-instruction span:last-child {
       font-size: 18px;
       color: #90ee90;
     }
+
     #game-container {
       display: flex;
       flex-direction: row;
@@ -49,16 +56,21 @@
       margin: auto;
       flex-wrap: wrap;
     }
+
     #left-panel, #right-panel {
       flex: 1;
     }
+
     .cell {
       border: 1px solid white;
       background-color: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 30px;
+      height: 30px;
     }
+
     .cell input {
       width: 100%;
       height: 100%;
@@ -68,41 +80,52 @@
       color: white;
       text-transform: uppercase;
       outline: none;
+      font-size: 16px;
     }
+
     .green {
       background-color: #7be15c;
       border: 1px solid black;
     }
+
     .green input {
       color: black;
       font-weight: bold;
     }
+
     .label {
       color: white;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 12px;
+      width: 30px;
+      height: 30px;
     }
+
     .question-block {
       margin-bottom: 20px;
     }
+
     .answer-row {
       display: flex;
       gap: 10px;
       margin-top: 5px;
     }
+
     .answer-row input {
       flex: 1;
-      padding: 8px;
-      font-size: 16px;
+      padding: 6px;
+      font-size: 14px;
       border-radius: 6px;
       border: 2px solid #ccc;
       text-transform: uppercase;
     }
+
     .answer-row button {
-      padding: 8px 14px;
-      font-size: 16px;
+      padding: 6px 12px;
+      font-size: 14px;
       background-color: #c0ff6a;
       border: 2px solid white;
       border-radius: 8px;
@@ -110,26 +133,64 @@
       font-weight: bold;
       color: #004d00;
     }
+
     .answer-row input:disabled {
       background-color: #e0e0e0;
       color: #999;
     }
+
     #grid {
       display: grid;
-      grid-template-columns: repeat(20, 36px);
+      grid-template-columns: repeat(20, 30px);
       gap: 3px;
     }
-    .cell {
-      width: 36px;
-      height: 36px;
-    }
-    .cell input {
-      font-size: 20px;
-    }
-    .label {
-      font-size: 14px;
-      width: 36px;
-      height: 36px;
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #grid {
+        grid-template-columns: repeat(20, 22px);
+        gap: 2px;
+      }
+
+      .cell, .label {
+        width: 22px;
+        height: 22px;
+      }
+
+      .cell input {
+        font-size: 12px;
+      }
+
+      .label {
+        font-size: 10px;
+      }
+
+      .answer-row input {
+        font-size: 12px;
+        padding: 4px;
+      }
+
+      .answer-row button {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+
+      #game-title {
+        font-size: 42px;
+      }
+
+      #main-instruction span:first-child {
+        font-size: 18px;
+      }
+
+      #main-instruction span:last-child {
+        font-size: 16px;
+      }
     }
   </style>
 </head>

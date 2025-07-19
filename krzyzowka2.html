@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Krzyżówka</title>
   <style>
     body {
       background-color: #0a1813;
       display: flex;
       justify-content: center;
+      align-items: center;
       padding: 40px;
       min-height: 100vh;
+      font-family: sans-serif;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(13, 40px);
+      grid-template-columns: repeat(20, 40px); /* dużo kolumn na zapas */
       grid-auto-rows: 40px;
       gap: 4px;
     }
@@ -50,122 +52,66 @@
       color: black;
       font-weight: bold;
     }
-
-    .empty {
-      background: transparent;
-      border: none;
-    }
   </style>
 </head>
 <body>
-  <div class="grid">
 
-    <!-- Rząd 1: 4L + 🟩 (kolumna 7) + 1P -->
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
+  <div class="grid" id="grid"></div>
 
-    <!-- Rząd 2: 2L + 🟩 + 3P -->
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
+  <script>
+    const grid = document.getElementById("grid");
 
-    <!-- Rząd 3: 3L + 🟩 -->
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
+    // Konfiguracja 12 haseł: ile kratek po lewej i prawej stronie zielonej kratki
+    const rows = [
+      { left: 4, right: 1 },
+      { left: 2, right: 3 },
+      { left: 3, right: 0 },
+      { left: 4, right: 4 },
+      { left: 4, right: 2 },
+      { left: 0, right: 4 },
+      { left: 6, right: 3 },
+      { left: 5, right: 2 },
+      { left: 3, right: 1 },
+      { left: 0, right: 8 },
+      { left: 5, right: 3 },
+      { left: 4, right: 0 }
+    ];
 
-    <!-- Rząd 4: 4L + 🟩 + 4P -->
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 11"><input maxlength="1" /></div>
+    const greenColumn = 10; // stała kolumna dla zielonych kratek
 
-    <!-- Rząd 5: 4L + 🟩 + 2P -->
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
+    rows.forEach((row, rowIndex) => {
+      const totalCells = row.left + 1 + row.right;
+      const startColumn = greenColumn - row.left;
 
-    <!-- Rząd 6: 0L + 🟩 + 4P -->
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 11"><input maxlength="1" /></div>
+      // Dodaj kratki po lewej
+      for (let i = 0; i < row.left; i++) {
+        const div = document.createElement("div");
+        div.className = "cell";
+        div.style.gridColumn = `${startColumn + i}`;
+        div.style.gridRow = `${rowIndex + 1}`;
+        div.innerHTML = `<input maxlength="1">`;
+        grid.appendChild(div);
+      }
 
-    <!-- Rząd 7: 6L + 🟩 + 3P -->
-    <div class="cell" style="grid-column: 1"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 2"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
+      // Dodaj zieloną kratkę
+      const green = document.createElement("div");
+      green.className = "cell green";
+      green.style.gridColumn = `${greenColumn}`;
+      green.style.gridRow = `${rowIndex + 1}`;
+      green.innerHTML = `<input maxlength="1">`;
+      grid.appendChild(green);
 
-    <!-- Rząd 8: 5L + 🟩 + 2P -->
-    <div class="cell" style="grid-column: 2"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
+      // Dodaj kratki po prawej
+      for (let i = 0; i < row.right; i++) {
+        const div = document.createElement("div");
+        div.className = "cell";
+        div.style.gridColumn = `${greenColumn + 1 + i}`;
+        div.style.gridRow = `${rowIndex + 1}`;
+        div.innerHTML = `<input maxlength="1">`;
+        grid.appendChild(div);
+      }
+    });
+  </script>
 
-    <!-- Rząd 9: 3L + 🟩 + 1P -->
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-
-    <!-- Rząd 10: 0L + 🟩 + 7P -->
-<div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 11"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 12"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 13"><input maxlength="1" /></div>
-<div class="cell" style="grid-column: 14"><input maxlength="1" /></div>
-
-    <!-- Rząd 11: 5L + 🟩 + 3P -->
-    <div class="cell" style="grid-column: 2"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 8"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 9"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 10"><input maxlength="1" /></div>
-
-    <!-- Rząd 12: 4L + 🟩 -->
-    <div class="cell" style="grid-column: 3"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 4"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 5"><input maxlength="1" /></div>
-    <div class="cell" style="grid-column: 6"><input maxlength="1" /></div>
-    <div class="cell green" style="grid-column: 7"><input maxlength="1" /></div>
-
-  </div>
 </body>
 </html>

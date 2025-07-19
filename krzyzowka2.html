@@ -24,28 +24,20 @@
       text-align: center;
       font-size: 64px;
       color: white;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       font-weight: bold;
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
-    #instruction-box {
-      text-align: center;
-      margin-bottom: 20px;
+    #instruction-mobile {
       display: none;
-    }
-
-    #instruction-box span:first-child {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    #instruction-box span:last-child {
-      font-size: 16px;
-      color: #90ee90;
-      display: block;
-      margin-top: 8px;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0 auto 20px;
+      max-width: 400px;
+      width: 80%;
     }
 
     #game-container {
@@ -59,8 +51,7 @@
       flex-wrap: wrap;
     }
 
-    #left-panel,
-    #right-panel {
+    #left-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -107,14 +98,28 @@
     }
 
     .label {
-      font-size: 14px;
       color: white;
       font-weight: bold;
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 36px;
       height: 36px;
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    #instruction {
+      font-size: 24px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     #buttons {
@@ -158,7 +163,7 @@
     #questions {
       font-size: 16px;
       line-height: 1.5;
-      margin: 40px auto 20px;
+      margin-top: 40px;
       width: 100%;
       max-width: 800px;
       text-align: left;
@@ -172,18 +177,24 @@
       #game-container {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
       }
 
-      #instruction-box {
+      #left-panel,
+      #right-panel {
+        width: 100%;
+      }
+
+      #instruction {
+        display: none;
+      }
+
+      #instruction-mobile {
         display: block;
       }
 
       #grid {
         grid-template-columns: repeat(20, 24px);
         gap: 2px;
-        width: fit-content;
-        margin: 0 auto;
       }
 
       .cell {
@@ -201,28 +212,6 @@
         height: 24px;
       }
 
-      #game-title {
-        font-size: 36px;
-      }
-
-      #instruction-box span:first-child {
-        font-size: 18px;
-      }
-
-      #instruction-box span:last-child {
-        font-size: 14px;
-      }
-
-      #questions {
-        font-size: 15px;
-        padding: 10px;
-        text-align: center;
-      }
-
-      #buttons button {
-        font-size: 16px;
-      }
-
       #logo-section {
         order: 5;
       }
@@ -234,16 +223,21 @@
       #website {
         font-size: 14px;
       }
+
+      #questions {
+        font-size: 15px;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <div id="instruction-box">
-    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span>
-    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
-  </div>
+  <p id="instruction-mobile">
+    Rozwiąż krzyżówkę i uzupełnij zdanie:<br />
+    Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _
+  </p>
 
   <div id="game-container">
     <div id="left-panel">
@@ -251,6 +245,11 @@
     </div>
 
     <div id="right-panel">
+      <p id="instruction">
+        Rozwiąż krzyżówkę i uzupełnij zdanie:<br />
+        Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _
+      </p>
+
       <div id="buttons">
         <button>Zatwierdź</button>
       </div>

@@ -30,17 +30,17 @@
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
-    #main-instruction {
+    #instruction-box {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    #main-instruction span:first-child {
+    #instruction-box span:first-child {
       font-size: 20px;
       font-weight: bold;
     }
 
-    #main-instruction span:last-child {
+    #instruction-box span:last-child {
       font-size: 16px;
       color: #90ee90;
       display: block;
@@ -176,7 +176,6 @@
       height: 36px;
     }
 
-    /* MOBILE */
     @media (max-width: 768px) {
       #game-container {
         flex-direction: column;
@@ -210,11 +209,11 @@
         font-size: 36px;
       }
 
-      #main-instruction span:first-child {
+      #instruction-box span:first-child {
         font-size: 18px;
       }
 
-      #main-instruction span:last-child {
+      #instruction-box span:last-child {
         font-size: 14px;
       }
 
@@ -231,11 +230,6 @@
 </head>
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
-
-  <div id="main-instruction">
-    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span>
-    <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
-  </div>
 
   <div id="game-container">
     <div id="left-panel">
@@ -260,6 +254,11 @@
     </div>
 
     <div id="right-panel">
+      <div id="instruction-box">
+        <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span>
+        <span>Do zielonego pojemnika wyrzucamy tylko szkło<br />_ _ _ _ _ _ _ _ _ _ _ _</span>
+      </div>
+
       <div id="buttons">
         <button>Zatwierdź</button>
       </div>

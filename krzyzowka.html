@@ -24,20 +24,25 @@
       text-align: center;
       font-size: 64px;
       color: white;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-weight: bold;
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
-    #instruction-mobile {
-      display: none;
-      font-size: 18px;
-      line-height: 1.6;
+    #main-instruction {
       text-align: center;
-      margin: 0 auto 20px;
-      max-width: 400px;
-      width: 80%;
+      margin-bottom: 30px;
+    }
+
+    #main-instruction span:first-child {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #main-instruction span:last-child {
+      font-size: 18px;
+      color: #90ee90;
     }
 
     #game-container {
@@ -56,81 +61,32 @@
       flex-direction: column;
     }
 
-    #grid-container {
-      display: grid;
-      grid-template-columns: repeat(4, 120px);
-      grid-template-rows: repeat(4, 120px);
-      gap: 15px;
-    }
-
-    .card {
-      width: 120px;
-      height: 120px;
-      position: relative;
-      cursor: pointer;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .card .front {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      visibility: hidden;
-    }
-
-    .card .cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      transition: filter 0.3s ease;
-      z-index: 2;
-      visibility: visible;
-      filter: grayscale(100%) brightness(80%);
-    }
-
-    .cover.kolorowa {
-      filter: none;
-    }
-
-    .card.flipped .cover {
-      visibility: hidden;
-    }
-
-    .card.flipped .front {
-      visibility: visible;
-    }
-
     #right-panel {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       max-width: 400px;
-      text-align: center;
+      gap: 20px;
     }
 
-    #instruction {
-      font-size: 24px;
+    #questions {
+      font-size: 18px;
       line-height: 1.6;
-      margin-bottom: 20px;
+    }
+
+    #questions ol {
+      padding-left: 20px;
     }
 
     #buttons {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     #buttons button {
-      width: 80%;
-      max-width: 400px;
+      width: 100%;
       padding: 15px 20px;
       font-size: 20px;
       font-weight: bold;
@@ -145,7 +101,6 @@
     #timer {
       font-size: 18px;
       font-weight: bold;
-      margin-top: 10px;
     }
 
     #logo-section {
@@ -164,100 +119,20 @@
       font-weight: bold;
     }
 
-    #end-screen {
-      display: none;
-      text-align: center;
-      margin-top: 40px;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    #end-screen.visible {
-      display: block;
-    }
-
-    #end-screen h2 {
-      font-size: 32px;
-      color: #c0ff6a;
-      margin-bottom: 16px;
-    }
-
-    #end-screen p {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    #end-screen button {
-      width: 80%;
-      max-width: 400px;
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #end-logo-section {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    #end-logo-section img {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #end-logo-section p {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
         align-items: center;
       }
 
-      #left-panel,
       #right-panel {
+        align-items: center;
         width: 100%;
       }
 
-      #left-panel {
-        align-items: center;
-      }
-
-      #instruction {
-        display: none;
-      }
-
-      #instruction-mobile {
-        display: block;
-      }
-
-      #grid-container {
-        grid-template-columns: repeat(4, 60px);
-        grid-template-rows: repeat(4, 60px);
-        gap: 8px;
-        margin-bottom: 20px;
-      }
-
-      .card {
-        width: 60px;
-        height: 60px;
-      }
-
-      #buttons {
-        margin-bottom: 10px;
+      #questions {
+        text-align: left;
+        margin-top: 20px;
       }
 
       #buttons button {
@@ -268,21 +143,67 @@
         margin-bottom: 20px;
         text-align: center;
       }
+    }
 
-      #logo-section {
-        order: 5;
+    /* --- KRZYŻÓWKA --- */
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(20, minmax(0, 1fr));
+      gap: 4px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .cell {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border: 1px solid white;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cell input {
+      width: 100%;
+      height: 100%;
+      font-size: 2vw;
+      text-align: center;
+      border: none;
+      background: transparent;
+      color: white;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    .green {
+      background-color: #7be15c;
+      border: 1px solid black;
+    }
+
+    .green input {
+      color: black;
+      font-weight: bold;
+    }
+
+    .label {
+      color: white;
+      font-size: 1.3vw;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+
+    @media (max-width: 600px) {
+      .cell input {
+        font-size: 4vw;
       }
 
-      #logo {
-        width: 80%;
-      }
-
-      #website {
-        font-size: 14px;
-      }
-
-      #end-logo-section p {
-        font-size: 14px;
+      .label {
+        font-size: 3vw;
       }
     }
   </style>
@@ -290,29 +211,39 @@
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <p id="instruction-mobile">
-    <span style="font-size: 20px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span style="font-size: 16px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło 
-     <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
-  </p>
+  <div id="main-instruction">
+    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _</span>
+  </div>
 
   <div id="game-container">
     <div id="left-panel">
-      <div id="grid-container"></div>
+      <div id="grid"></div>
     </div>
 
     <div id="right-panel">
-      <p id="instruction">
-        <span style="font-size: 22px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-        <span style="font-size: 18px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło 
-         <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
-      </p>
-
-      <div id="buttons" class="controls">
+      <div id="buttons">
         <button id="startBtn">Start</button>
       </div>
 
       <div id="timer">Czas: 0 s</div>
+
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
+      </div>
 
       <div id="logo-section">
         <img src="img/Logo.png" alt="Logo gry" id="logo" />
@@ -321,206 +252,88 @@
     </div>
   </div>
 
-  <div id="end-screen" class="hidden">
-    <h2>GRATULACJE!</h2>
-    <p>Udało Ci się znaleźć wszystkie pary!</p>
-    <p id="final-time">Twój czas: ...</p>
-    <button onclick="restartAndStart()">Zagraj ponownie</button>
-
-    <div id="end-logo-section">
-      <img src="img/Logo.png" alt="Logo gry" />
-      <p>WWW.SZKLOMUSTGOON.PL</p>
-    </div>
-  </div>
-
   <script>
-    const gridContainer = document.getElementById("grid-container");
-    const startBtn = document.getElementById("startBtn");
-    const timerDisplay = document.getElementById("timer");
-    const endScreen = document.getElementById("end-screen");
-    const finalTime = document.getElementById("final-time");
+    const grid = document.getElementById("grid");
+    const rows = [
+      { left: 4, right: 1 },
+      { left: 2, right: 3 },
+      { left: 3, right: 0 },
+      { left: 4, right: 4 },
+      { left: 4, right: 2 },
+      { left: 0, right: 4 },
+      { left: 6, right: 3 },
+      { left: 5, right: 2 },
+      { left: 3, right: 1 },
+      { left: 0, right: 8 },
+      { left: 5, right: 3 },
+      { left: 4, right: 0 }
+    ];
+    const greenColumn = 11;
 
-    let firstCard = null;
-    let secondCard = null;
-    let lockBoard = true;
-    let matchedPairs = 0;
-    let timer;
-    let seconds = 0;
-    let started = false;
+    rows.forEach((row, rowIndex) => {
+      const y = rowIndex + 1;
+      const inputRow = [];
 
-    const createCardArray = () => {
-      const pairs = [];
-      for (let i = 1; i <= 8; i++) {
-        pairs.push(i, i);
+      const label = document.createElement("div");
+      label.className = "label";
+      label.style.gridColumn = `${greenColumn - row.left - 1}`;
+      label.style.gridRow = `${y}`;
+      label.textContent = y;
+      grid.appendChild(label);
+
+      for (let i = 0; i < row.left; i++) {
+        const col = greenColumn - row.left + i;
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
+
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
+        grid.appendChild(cell);
+        inputRow.push(input);
       }
-      return pairs.sort(() => 0.5 - Math.random());
-    };
 
-    const createBoard = (colorCovers = false) => {
-      gridContainer.innerHTML = "";
-      const cardValues = createCardArray();
+      const greenCell = document.createElement("div");
+      greenCell.className = "cell green";
+      greenCell.style.gridColumn = greenColumn;
+      greenCell.style.gridRow = y;
 
-      cardValues.forEach((value) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
+      const greenInput = document.createElement("input");
+      greenInput.maxLength = 1;
+      greenCell.appendChild(greenInput);
+      grid.appendChild(greenCell);
+      inputRow.push(greenInput);
 
-        const frontImg = document.createElement("img");
-        frontImg.src = `img/${value}.png`;
-        frontImg.classList.add("front");
+      for (let i = 0; i < row.right; i++) {
+        const col = greenColumn + 1 + i;
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.style.gridColumn = col;
+        cell.style.gridRow = y;
 
-        const backImg = document.createElement("img");
-        backImg.src = "img/9.png";
-        backImg.classList.add("cover");
-        if (colorCovers) backImg.classList.add("kolorowa");
+        const input = document.createElement("input");
+        input.maxLength = 1;
+        cell.appendChild(input);
+        grid.appendChild(cell);
+        inputRow.push(input);
+      }
 
-        card.appendChild(frontImg);
-        card.appendChild(backImg);
-        gridContainer.appendChild(card);
-
-        card.addEventListener("click", () => handleCardClick(card, value));
-      });
-    };
-
-    const handleCardClick = (card, value) => {
-      if (lockBoard || card.classList.contains("flipped")) return;
-
-      card.classList.add("flipped");
-
-      if (!firstCard) {
-        firstCard = { card, value };
-      } else {
-        secondCard = { card, value };
-        lockBoard = true;
-
-        if (firstCard.value === secondCard.value) {
-          matchedPairs++;
-          resetTurn();
-          if (matchedPairs === 8) {
-            endGame();
+      inputRow.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length === 1 && index < inputRow.length - 1) {
+            inputRow[index + 1].focus();
           }
-        } else {
-          setTimeout(() => {
-            firstCard.card.classList.remove("flipped");
-            secondCard.card.classList.remove("flipped");
-            resetTurn();
-          }, 1000);
-        }
-      }
-    };
-
-    const resetTurn = () => {
-      firstCard = null;
-      secondCard = null;
-      lockBoard = false;
-    };
-
-    const startTimer = () => {
-      seconds = 0;
-      timerDisplay.textContent = "Czas: 0 s";
-      timer = setInterval(() => {
-        seconds++;
-        timerDisplay.textContent = `Czas: ${seconds} s`;
-      }, 1000);
-    };
-
-    const stopTimer = () => {
-      clearInterval(timer);
-    };
-
-    const restartAndStart = () => {
-      stopTimer();
-      seconds = 0;
-      timerDisplay.textContent = "Czas: 0 s";
-      matchedPairs = 0;
-      firstCard = null;
-      secondCard = null;
-      lockBoard = true;
-
-      const oldCards = Array.from(document.querySelectorAll(".card"));
-      const gridRect = gridContainer.getBoundingClientRect();
-      const centerX = gridRect.left + gridRect.width / 2;
-      const centerY = gridRect.top + gridRect.height / 2;
-
-      oldCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const offsetX = centerX - (rect.left + rect.width / 2);
-        const offsetY = centerY - (rect.top + rect.height / 2);
-        card.style.transition = "transform 0.5s ease-in-out";
-        card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
-
-      setTimeout(() => {
-        createBoard(true);
-        lockBoard = false;
-        startTimer();
-
-        const newCards = Array.from(document.querySelectorAll(".card"));
-        const newGridRect = gridContainer.getBoundingClientRect();
-        const centerX = newGridRect.left + newGridRect.width / 2;
-        const centerY = newGridRect.top + newGridRect.height / 2;
-
-        newCards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const offsetX = centerX - (rect.left + rect.width / 2);
-          const offsetY = centerY - (rect.top + rect.height / 2);
-          card.style.transition = "none";
-          card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
         });
-
-        setTimeout(() => {
-          newCards.forEach(card => {
-            card.style.transition = "transform 0.6s ease-in-out";
-            card.style.transform = "translate(0, 0)";
-          });
-
-          setTimeout(() => {
-            newCards.forEach(card => {
-              card.style.transition = "";
-              card.style.transform = "";
-            });
-          }, 700);
-        }, 30);
-      }, 600);
-
-      endScreen.classList.remove("visible");
-      document.getElementById("game-container").style.display = "flex";
-      document.getElementById("instruction").style.display = "";
-      document.getElementById("instruction-mobile").style.display = "";
-    };
-
-    const endGame = () => {
-      stopTimer();
-      finalTime.textContent = `Twój czas: ${seconds} s`;
-
-      document.getElementById("game-container").style.display = "none";
-      document.getElementById("instruction").style.display = "none";
-      document.getElementById("instruction-mobile").style.display = "none";
-      endScreen.classList.add("visible");
-
-      confetti({
-        particleCount: 150,
-        spread: 100,
-        origin: { y: 0.6 }
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && input.value === "" && index > 0) {
+            e.preventDefault();
+            inputRow[index - 1].focus();
+          }
+        });
       });
-    };
-
-    startBtn.addEventListener("click", () => {
-      if (!started) {
-        document.querySelectorAll(".cover").forEach(cover => cover.classList.add("kolorowa"));
-        lockBoard = false;
-        startTimer();
-        startBtn.textContent = "Restart";
-        started = true;
-      } else {
-        restartAndStart();
-      }
     });
-
-    window.onload = () => {
-      createBoard(false);
-    };
   </script>
 </body>
 </html>
-
-

@@ -2,28 +2,161 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Krzyżówka</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gra Krzyżówka – Szkło Must Go On</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
-    body {
-      background-color: #0a1813;
-      display: flex;
-      justify-content: center;
-      padding: 40px;
-      min-height: 100vh;
-      font-family: sans-serif;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .grid {
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 20px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #main-instruction {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #main-instruction span:first-child {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #main-instruction span:last-child {
+      font-size: 18px;
+      color: #90ee90;
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    #left-panel {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 400px;
+      gap: 20px;
+    }
+
+    #questions {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    #questions ol {
+      padding-left: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    #buttons button {
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1024px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #right-panel {
+        align-items: center;
+        width: 100%;
+      }
+
+      #questions {
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      #buttons button {
+        width: 80%;
+      }
+
+      #timer {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    }
+
+    /* --- KRZYŻÓWKA --- */
+    #grid {
       display: grid;
-      grid-template-columns: repeat(20, 40px);
-      grid-auto-rows: 40px;
+      grid-template-columns: repeat(20, minmax(0, 1fr));
       gap: 4px;
+      width: 100%;
+      max-width: 800px;
     }
 
     .cell {
-      width: 40px;
-      height: 40px;
+      width: 100%;
+      aspect-ratio: 1/1;
       border: 1px solid white;
       background-color: transparent;
       display: flex;
@@ -34,16 +167,12 @@
     .cell input {
       width: 100%;
       height: 100%;
-      background: transparent;
-      border: none;
+      font-size: 2vw;
       text-align: center;
-      font-size: 20px;
+      border: none;
+      background: transparent;
       color: white;
       text-transform: uppercase;
-      outline: none;
-    }
-
-    .cell input:focus {
       outline: none;
     }
 
@@ -59,23 +188,72 @@
 
     .label {
       color: white;
-      font-size: 16px;
+      font-size: 1.3vw;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+
+    @media (max-width: 600px) {
+      .cell input {
+        font-size: 4vw;
+      }
+
+      .label {
+        font-size: 3vw;
+      }
     }
   </style>
 </head>
 <body>
+  <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <div class="grid" id="grid"></div>
+  <div id="main-instruction">
+    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _</span>
+  </div>
+
+  <div id="game-container">
+    <div id="left-panel">
+      <div id="grid"></div>
+    </div>
+
+    <div id="right-panel">
+      <div id="buttons">
+        <button id="startBtn">Start</button>
+      </div>
+
+      <div id="timer">Czas: 0 s</div>
+
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
+      </div>
+
+      <div id="logo-section">
+        <img src="img/Logo.png" alt="Logo gry" id="logo" />
+        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+      </div>
+    </div>
+  </div>
 
   <script>
     const grid = document.getElementById("grid");
-
     const rows = [
       { left: 4, right: 1 },
       { left: 2, right: 3 },
@@ -90,14 +268,12 @@
       { left: 5, right: 3 },
       { left: 4, right: 0 }
     ];
-
     const greenColumn = 11;
 
     rows.forEach((row, rowIndex) => {
       const y = rowIndex + 1;
       const inputRow = [];
 
-      // Numer hasła
       const label = document.createElement("div");
       label.className = "label";
       label.style.gridColumn = `${greenColumn - row.left - 1}`;
@@ -105,7 +281,6 @@
       label.textContent = y;
       grid.appendChild(label);
 
-      // Kratki po lewej stronie
       for (let i = 0; i < row.left; i++) {
         const col = greenColumn - row.left + i;
         const cell = document.createElement("div");
@@ -117,11 +292,9 @@
         input.maxLength = 1;
         cell.appendChild(input);
         grid.appendChild(cell);
-
         inputRow.push(input);
       }
 
-      // Zielona kratka
       const greenCell = document.createElement("div");
       greenCell.className = "cell green";
       greenCell.style.gridColumn = greenColumn;
@@ -131,10 +304,8 @@
       greenInput.maxLength = 1;
       greenCell.appendChild(greenInput);
       grid.appendChild(greenCell);
-
       inputRow.push(greenInput);
 
-      // Kratki po prawej stronie
       for (let i = 0; i < row.right; i++) {
         const col = greenColumn + 1 + i;
         const cell = document.createElement("div");
@@ -146,29 +317,23 @@
         input.maxLength = 1;
         cell.appendChild(input);
         grid.appendChild(cell);
-
         inputRow.push(input);
       }
 
-      // Obsługa przejścia do następnej kratki
       inputRow.forEach((input, index) => {
         input.addEventListener("input", () => {
-          const value = input.value;
-          if (value.length === 1 && index < inputRow.length - 1) {
+          if (input.value.length === 1 && index < inputRow.length - 1) {
             inputRow[index + 1].focus();
           }
         });
-
-        // Obsługa backspace – cofnięcie kursora
         input.addEventListener("keydown", (e) => {
           if (e.key === "Backspace" && input.value === "" && index > 0) {
-            e.preventDefault(); // zapobiega cofaniu focusu przez przeglądarkę
+            e.preventDefault();
             inputRow[index - 1].focus();
           }
         });
       });
     });
   </script>
-
 </body>
 </html>

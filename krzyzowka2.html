@@ -76,7 +76,6 @@
   <script>
     const grid = document.getElementById("grid");
 
-    // Hasła: liczba kratek po lewej i prawej stronie zielonej kratki
     const rows = [
       { left: 4, right: 1 },
       { left: 2, right: 3 },
@@ -92,15 +91,13 @@
       { left: 4, right: 0 }
     ];
 
-    const greenColumn = 11; // zielona kratka zawsze w kolumnie 11
-
-    const allInputs = []; // tablica na wszystkie inputy do obsługi automatycznego przechodzenia
+    const greenColumn = 11;
 
     rows.forEach((row, rowIndex) => {
       const y = rowIndex + 1;
-      const inputRow = []; // inputy w danym wierszu
+      const inputRow = [];
 
-      // Numer po lewej stronie
+      // Numer hasła
       const label = document.createElement("div");
       label.className = "label";
       label.style.gridColumn = `${greenColumn - row.left - 1}`;
@@ -153,16 +150,23 @@
         inputRow.push(input);
       }
 
-      // Obsługa automatycznego przechodzenia w danym wierszu
+      // Obsługa przejścia do następnej kratki
       inputRow.forEach((input, index) => {
         input.addEventListener("input", () => {
-          if (input.value.length === 1 && index < inputRow.length - 1) {
+          const value = input.value;
+          if (value.length === 1 && index < inputRow.length - 1) {
             inputRow[index + 1].focus();
           }
         });
-      });
 
-      allInputs.push(...inputRow);
+        // Obsługa backspace – cofnięcie kursora
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && input.value === "" && index > 0) {
+            e.preventDefault(); // zapobiega cofaniu focusu przez przeglądarkę
+            inputRow[index - 1].focus();
+          }
+        });
+      });
     });
   </script>
 

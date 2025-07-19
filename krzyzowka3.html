@@ -24,20 +24,25 @@
       text-align: center;
       font-size: 64px;
       color: white;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-weight: bold;
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
-    #instruction-mobile {
-      display: none;
-      font-size: 18px;
-      line-height: 1.6;
+    #main-instruction {
       text-align: center;
-      margin: 0 auto 20px;
-      max-width: 400px;
-      width: 80%;
+      margin-bottom: 30px;
+    }
+
+    #main-instruction span:first-child {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #main-instruction span:last-child {
+      font-size: 18px;
+      color: #90ee90;
     }
 
     #game-container {
@@ -59,28 +64,29 @@
     #right-panel {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       max-width: 400px;
-      text-align: center;
+      gap: 20px;
     }
 
-    #instruction {
-      font-size: 24px;
+    #questions {
+      font-size: 18px;
       line-height: 1.6;
-      margin-bottom: 20px;
+    }
+
+    #questions ol {
+      padding-left: 20px;
     }
 
     #buttons {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     #buttons button {
-      width: 80%;
-      max-width: 400px;
+      width: 100%;
       padding: 15px 20px;
       font-size: 20px;
       font-weight: bold;
@@ -90,12 +96,6 @@
       border: 4px solid white;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #timer {
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 10px;
     }
 
     #logo-section {
@@ -114,109 +114,29 @@
       font-weight: bold;
     }
 
-    #end-screen {
-      display: none;
-      text-align: center;
-      margin-top: 40px;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    #end-screen.visible {
-      display: block;
-    }
-
-    #end-screen h2 {
-      font-size: 32px;
-      color: #c0ff6a;
-      margin-bottom: 16px;
-    }
-
-    #end-screen p {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    #end-screen button {
-      width: 80%;
-      max-width: 400px;
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #end-logo-section {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    #end-logo-section img {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #end-logo-section p {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
         align-items: center;
       }
 
-      #left-panel,
       #right-panel {
+        align-items: center;
         width: 100%;
+        order: 2;
       }
 
-      #instruction {
-        display: none;
-      }
-
-      #instruction-mobile {
-        display: block;
-      }
-
-      #buttons {
-        margin-bottom: 10px;
+      #questions {
+        text-align: left;
+        margin-top: 20px;
       }
 
       #buttons button {
         width: 80%;
       }
 
-      #timer {
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
       #logo-section {
-        order: 5;
-      }
-
-      #logo {
-        width: 80%;
-      }
-
-      #website {
-        font-size: 14px;
-      }
-
-      #end-logo-section p {
-        font-size: 14px;
+        order: 3;
       }
     }
 
@@ -224,7 +144,7 @@
     #grid {
       display: grid;
       grid-template-columns: repeat(20, minmax(0, 1fr));
-      gap: 4px;
+      gap: 3px;
       width: 100%;
       max-width: 800px;
     }
@@ -242,16 +162,12 @@
     .cell input {
       width: 100%;
       height: 100%;
-      font-size: 2vw;
+      font-size: 1.8vw;
       text-align: center;
       border: none;
       background: transparent;
       color: white;
       text-transform: uppercase;
-      outline: none;
-    }
-
-    .cell input:focus {
       outline: none;
     }
 
@@ -267,7 +183,7 @@
 
     .label {
       color: white;
-      font-size: 1.3vw;
+      font-size: 1.1vw;
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -290,11 +206,10 @@
 <body>
   <h1 id="game-title">KRZYŻÓWKA</h1>
 
-  <p id="instruction-mobile">
-    <span style="font-size: 20px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-    <span style="font-size: 16px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło 
-     <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
-  </p>
+  <div id="main-instruction">
+    <span>Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
+    <span>Do zielonego pojemnika wyrzucamy tylko szkło _ _ _ _ _ _ _ _ _ _ _ _</span>
+  </div>
 
   <div id="game-container">
     <div id="left-panel">
@@ -302,34 +217,31 @@
     </div>
 
     <div id="right-panel">
-      <p id="instruction">
-        <span style="font-size: 22px; font-weight: bold;">Rozwiąż krzyżówkę i uzupełnij zdanie:</span><br />
-        <span style="font-size: 18px; color: #90ee90;">Do zielonego pojemnika wyrzucamy tylko szkło 
-         <br /> _ _ _ _ _ _ _ _ _ _ _ _</span>
-      </p>
-
-      <div id="buttons" class="controls">
+      <div id="buttons">
         <button id="startBtn">Start</button>
       </div>
 
-      <div id="timer">Czas: 0 s</div>
+      <div id="questions">
+        <ol>
+          <li>Opakowanie na perfumy.</li>
+          <li>Jakie odpady wrzucamy do niebieskiego pojemnika.</li>
+          <li>Miejsce, w którym produkowane są nowe butelki szklane?</li>
+          <li>Nazwa procesu ponownego przetwarzania odpadów.</li>
+          <li>Kolor pojemnika na szkło.</li>
+          <li>Przydaje się na kwiaty i chociaż może być szklany, to nie wyrzucamy go do szkła.</li>
+          <li>Duży samochód odbierający odpady.</li>
+          <li>Służy do picia, ale wyrzucamy ją do czarnego pojemnika.</li>
+          <li>Pojemnik na konfitury i przetwory.</li>
+          <li>Co należy zrobić z butelką przed jej wyrzuceniem do pojemnika na szkło?</li>
+          <li>Miejsce, w którym sortowane są odpady.</li>
+          <li>Tego nie robimy przed wyrzuceniem butelek i słoików, by nie marnować wody.</li>
+        </ol>
+      </div>
 
       <div id="logo-section">
         <img src="img/Logo.png" alt="Logo gry" id="logo" />
         <p id="website">WWW.SZKLOMUSTGOON.PL</p>
       </div>
-    </div>
-  </div>
-
-  <div id="end-screen" class="hidden">
-    <h2>GRATULACJE!</h2>
-    <p>Udało Ci się znaleźć wszystkie litery!</p>
-    <p id="final-time">Twój czas: ...</p>
-    <button onclick="location.reload()">Zagraj ponownie</button>
-
-    <div id="end-logo-section">
-      <img src="img/Logo.png" alt="Logo gry" />
-      <p>WWW.SZKLOMUSTGOON.PL</p>
     </div>
   </div>
 

@@ -12,15 +12,11 @@
       padding: 0;
     }
 
-    html {
-      font-size: 16px;
-    }
-
-    body {
+    html, body {
       font-family: Arial, sans-serif;
       background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
       color: #e2e2e2;
-      padding: 20px 10px;
+      padding: 20px;
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -187,23 +183,32 @@
       }
     }
 
-    /* ----- Telefony (elastyczna siatka i układ kolumnowy) ----- */
+    /* ----- Telefony (pełna responsywność) ----- */
     @media (max-width: 768px) {
-      html {
-        font-size: 14px;
+      html, body {
+        overflow-x: hidden;
       }
 
       #game-container {
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        margin: 0 auto;
+        width: 100%;
+        padding-inline: 10px;
+      }
+
+      #left-panel,
+      #right-panel {
+        align-items: center;
+        text-align: center;
+        width: 100%;
       }
 
       #grid {
-        width: 90vw;
+        display: grid;
+        width: 95vw;
         grid-template-columns: repeat(20, 4.5vw);
-        gap: 1.2vw;
+        gap: 2px;
+        margin: auto;
       }
 
       .cell {
@@ -216,28 +221,26 @@
       }
 
       .label {
-        font-size: 3.2vw;
+        font-size: 3vw;
         width: 4.5vw;
         height: 4.5vw;
       }
 
-      #right-panel {
-        width: 100%;
-        max-width: 100%;
-        padding: 0 5vw;
-      }
-
       #questions {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-top: 30px;
+        width: 100%;
         padding: 10px;
-        font-size: 15px;
+        text-align: left;
       }
 
       #buttons button {
-        width: 80%;
+        width: 90%;
       }
 
       #logo {
-        max-width: 80vw;
+        width: 60%;
       }
     }
   </style>

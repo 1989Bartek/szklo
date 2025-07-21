@@ -65,18 +65,16 @@
 
     #bins-row {
       display: flex;
-      gap: 8px;
-      flex-wrap: nowrap;
+      gap: 10px;
+      flex-wrap: wrap;
       justify-content: center;
-      flex-shrink: 0;
     }
 
     .bin-img {
-      width: 75px;
+      width: 70px;
       height: auto;
       filter: grayscale(100%) brightness(80%);
       transition: filter 0.3s ease;
-      flex-shrink: 0;
     }
 
     .bin-img.kolorowa {
@@ -99,12 +97,10 @@
 
     #buttons {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       width: 100%;
       margin-top: 20px;
       margin-bottom: 10px;
-      gap: 12px;
     }
 
     #buttons button {
@@ -178,12 +174,6 @@
       #website {
         font-size: 14px;
       }
-
-      #bins-row {
-        flex-wrap: nowrap;
-        flex-direction: row;
-        gap: 6px;
-      }
     }
   </style>
 </head>
@@ -213,7 +203,6 @@
 
       <div id="buttons" class="controls">
         <button id="startBtn">Start</button>
-        <button onclick="window.location.reload()">Restart</button>
       </div>
 
       <div id="timer">Czas: 0 s</div>
@@ -246,19 +235,28 @@
     };
 
     const getRandomImagePath = () => {
-      const number = Math.floor(Math.random() * 40) + 10; // od 10 do 49
+      const number = Math.floor(Math.random() * 40) + 10; // 10–49
       return `img/${number}.png`;
     };
 
     startBtn.addEventListener("click", () => {
       if (!started) {
+        // START
         binImages.forEach(img => img.classList.add("kolorowa"));
         randomImage.src = getRandomImagePath();
         startTimer();
         started = true;
-        startBtn.textContent = "Start";
+        startBtn.textContent = "Restart";
+      } else {
+        // RESTART
+        location.reload();
       }
     });
+
+    window.onload = () => {
+      randomImage.src = "img/0.png";
+      binImages.forEach(img => img.classList.remove("kolorowa"));
+    };
   </script>
 </body>
 </html>

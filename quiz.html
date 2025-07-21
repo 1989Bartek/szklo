@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QUIZ - Szkło Must Go On</title>
+  <title>Quiz - Szkło Must Go On</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -107,7 +107,7 @@
     }
 
     .answer-box.correct {
-      background-color: #a9ff9b !important;
+      background-color: #3fae3f !important; /* ciemniejszy zielony */
     }
 
     .answer-box.incorrect {
@@ -270,7 +270,7 @@
 
   <div id="end-screen">
     <h2>GRATULACJE!</h2>
-    <p>Udało Ci się ukończyć zadanie.</p>
+    <p>Udało Ci się odpowiedzieć na wszystkie pytania.</p>
     <p id="final-score">Zdobyte punkty: ...</p>
     <button onclick="location.reload()">Zagraj ponownie</button>
     <div id="end-logo-section">
@@ -346,11 +346,7 @@
     }
 
     startBtn.addEventListener("click", () => {
-      currentIndex = -1;
-      score = 0;
-      pointsDisplay.textContent = "Punkty: 0";
-      startBtn.textContent = "Restart";
-      loadQuestion();
+      location.reload();
     });
 
     window.onload = () => {

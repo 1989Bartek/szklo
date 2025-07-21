@@ -1,1 +1,260 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gra – Segregacja Odpadów</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 30px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #instruction-mobile {
+      display: none;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0 auto 20px;
+      max-width: 400px;
+      width: 80%;
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    #left-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #random-image {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #bins-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .bin-img {
+      width: 100px;
+      height: auto;
+      filter: grayscale(100%) brightness(80%);
+      transition: filter 0.3s ease;
+    }
+
+    .bin-img.kolorowa {
+      filter: none;
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    #instruction {
+      font-size: 24px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1024px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #left-panel,
+      #right-panel {
+        width: 100%;
+      }
+
+      #instruction {
+        display: none;
+      }
+
+      #instruction-mobile {
+        display: block;
+      }
+
+      #buttons button {
+        width: 80%;
+      }
+
+      #timer {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      #logo {
+        width: 80%;
+      }
+
+      #website {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="game-title">SEGREGACJA ODPADÓW</h1>
+
+  <p id="instruction-mobile">
+    Dopasuj odpady do odpowiednich pojemników.
+  </p>
+
+  <div id="game-container">
+    <div id="left-panel">
+      <img id="random-image" src="" alt="Obrazek odpadu" />
+      <div id="bins-row">
+        <img class="bin-img" src="img/ZOLTY.png" alt="Kosz zolty" />
+        <img class="bin-img" src="img/NIEBIESKI.png" alt="Kosz niebieski" />
+        <img class="bin-img" src="img/ZIELONY.png" alt="Kosz zielony" />
+        <img class="bin-img" src="img/BRAZOWY.png" alt="Kosz brazowy" />
+        <img class="bin-img" src="img/CZARNY.png" alt="Kosz czarny" />
+      </div>
+    </div>
+
+    <div id="right-panel">
+      <p id="instruction">
+        Dopasuj odpady do odpowiednich pojemników.
+      </p>
+
+      <div id="buttons" class="controls">
+        <button id="startBtn">Start</button>
+      </div>
+
+      <div id="timer">Czas: 0 s</div>
+
+      <div id="logo-section">
+        <img src="img/Logo.png" alt="Logo gry" id="logo" />
+        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const randomImage = document.getElementById("random-image");
+    const binImages = document.querySelectorAll(".bin-img");
+    const timerDisplay = document.getElementById("timer");
+    const startBtn = document.getElementById("startBtn");
+
+    let timer;
+    let seconds = 0;
+    let started = false;
+
+    const startTimer = () => {
+      seconds = 0;
+      timerDisplay.textContent = "Czas: 0 s";
+      clearInterval(timer);
+      timer = setInterval(() => {
+        seconds++;
+        timerDisplay.textContent = `Czas: ${seconds} s`;
+      }, 1000);
+    };
+
+    const getRandomImagePath = () => {
+      const number = Math.floor(Math.random() * 40) + 10; // od 10 do 49
+      return `img/${number}.png`;
+    };
+
+    startBtn.addEventListener("click", () => {
+      if (!started) {
+        binImages.forEach(img => img.classList.add("kolorowa"));
+        randomImage.src = getRandomImagePath();
+        randomImage.style.display = "block";
+        startTimer();
+        started = true;
+        startBtn.textContent = "Restart";
+      } else {
+        // restart
+        randomImage.src = getRandomImagePath();
+        seconds = 0;
+      }
+    });
+  </script>
+</body>
+</html>
 

@@ -65,14 +65,22 @@
 
     #bins-row {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 8px;
+      flex-wrap: nowrap;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .bin-img {
-      width: 100px;
+      width: 75px;
       height: auto;
+      filter: grayscale(100%) brightness(80%);
+      transition: filter 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .bin-img.kolorowa {
+      filter: none;
     }
 
     #right-panel {
@@ -91,10 +99,12 @@
 
     #buttons {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       width: 100%;
       margin-top: 20px;
       margin-bottom: 10px;
+      gap: 12px;
     }
 
     #buttons button {
@@ -168,6 +178,12 @@
       #website {
         font-size: 14px;
       }
+
+      #bins-row {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        gap: 6px;
+      }
     }
   </style>
 </head>
@@ -180,12 +196,12 @@
 
   <div id="game-container">
     <div id="left-panel">
-      <img id="random-image" src="" alt="Obrazek odpadu" />
+      <img id="random-image" src="img/0.png" alt="Obrazek odpadu" />
       <div id="bins-row">
-        <img class="bin-img" src="img/ZOLTY.png" alt="Kosz żółty" />
+        <img class="bin-img" src="img/ZOLTY.png" alt="Kosz zolty" />
         <img class="bin-img" src="img/NIEBIESKI.png" alt="Kosz niebieski" />
         <img class="bin-img" src="img/ZIELONY.png" alt="Kosz zielony" />
-        <img class="bin-img" src="img/BRAZOWY.png" alt="Kosz brązowy" />
+        <img class="bin-img" src="img/BRAZOWY.png" alt="Kosz brazowy" />
         <img class="bin-img" src="img/CZARNY.png" alt="Kosz czarny" />
       </div>
     </div>
@@ -197,6 +213,7 @@
 
       <div id="buttons" class="controls">
         <button id="startBtn">Start</button>
+        <button onclick="window.location.reload()">Restart</button>
       </div>
 
       <div id="timer">Czas: 0 s</div>
@@ -210,11 +227,13 @@
 
   <script>
     const randomImage = document.getElementById("random-image");
+    const binImages = document.querySelectorAll(".bin-img");
     const timerDisplay = document.getElementById("timer");
     const startBtn = document.getElementById("startBtn");
 
     let timer;
     let seconds = 0;
+    let started = false;
 
     const startTimer = () => {
       seconds = 0;
@@ -232,13 +251,14 @@
     };
 
     startBtn.addEventListener("click", () => {
-      randomImage.src = getRandomImagePath();
-      startTimer();
+      if (!started) {
+        binImages.forEach(img => img.classList.add("kolorowa"));
+        randomImage.src = getRandomImagePath();
+        startTimer();
+        started = true;
+        startBtn.textContent = "Start";
+      }
     });
-
-    window.onload = () => {
-      randomImage.src = getRandomImagePath();
-    };
   </script>
 </body>
 </html>

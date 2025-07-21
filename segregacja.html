@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gra Memory – Szkło Must Go On</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <title>Gra – Segregacja Odpadów</title>
   <style>
     * {
       box-sizing: border-box;
@@ -54,56 +53,26 @@
     #left-panel {
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
-    #grid-container {
-      display: grid;
-      grid-template-columns: repeat(4, 120px);
-      grid-template-rows: repeat(4, 120px);
-      gap: 15px;
-    }
-
-    .card {
-      width: 120px;
-      height: 120px;
-      position: relative;
-      cursor: pointer;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .card .front {
+    #random-image {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      visibility: hidden;
+      max-width: 500px;
+      height: auto;
+      margin-bottom: 20px;
     }
 
-    .card .cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      transition: filter 0.3s ease;
-      z-index: 2;
-      visibility: visible;
-      filter: grayscale(100%) brightness(80%);
+    #bins-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .cover.kolorowa {
-      filter: none;
-    }
-
-    .card.flipped .cover {
-      visibility: hidden;
-    }
-
-    .card.flipped .front {
-      visibility: visible;
+    .bin-img {
+      width: 100px;
+      height: auto;
     }
 
     #right-panel {
@@ -164,63 +133,6 @@
       font-weight: bold;
     }
 
-    #end-screen {
-      display: none;
-      text-align: center;
-      margin-top: 40px;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    #end-screen.visible {
-      display: block;
-    }
-
-    #end-screen h2 {
-      font-size: 32px;
-      color: #c0ff6a;
-      margin-bottom: 16px;
-    }
-
-    #end-screen p {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    #end-screen button {
-      width: 80%;
-      max-width: 400px;
-      padding: 15px 20px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: #c0ff6a;
-      color: #004d00;
-      border: 4px solid white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    #end-logo-section {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    #end-logo-section img {
-      max-width: 400px;
-      width: 80%;
-      height: auto;
-    }
-
-    #end-logo-section p {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
@@ -232,32 +144,12 @@
         width: 100%;
       }
 
-      #left-panel {
-        align-items: center;
-      }
-
       #instruction {
         display: none;
       }
 
       #instruction-mobile {
         display: block;
-      }
-
-      #grid-container {
-        grid-template-columns: repeat(4, 60px);
-        grid-template-rows: repeat(4, 60px);
-        gap: 8px;
-        margin-bottom: 20px;
-      }
-
-      .card {
-        width: 60px;
-        height: 60px;
-      }
-
-      #buttons {
-        margin-bottom: 10px;
       }
 
       #buttons button {
@@ -269,10 +161,6 @@
         text-align: center;
       }
 
-      #logo-section {
-        order: 5;
-      }
-
       #logo {
         width: 80%;
       }
@@ -280,28 +168,31 @@
       #website {
         font-size: 14px;
       }
-
-      #end-logo-section p {
-        font-size: 14px;
-      }
     }
   </style>
 </head>
 <body>
-  <h1 id="game-title">MEMORY</h1>
+  <h1 id="game-title">SEGREGACJA ODPADÓW</h1>
 
   <p id="instruction-mobile">
-    Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
+    Dopasuj odpady do odpowiednich pojemników.
   </p>
 
   <div id="game-container">
     <div id="left-panel">
-      <div id="grid-container"></div>
+      <img id="random-image" src="" alt="Obrazek odpadu" />
+      <div id="bins-row">
+        <img class="bin-img" src="img/ŻÓŁTY.png" alt="Kosz żółty" />
+        <img class="bin-img" src="img/NIEBIESKI.png" alt="Kosz niebieski" />
+        <img class="bin-img" src="img/ZIELONY.png" alt="Kosz zielony" />
+        <img class="bin-img" src="img/BRĄZOWY.png" alt="Kosz brązowy" />
+        <img class="bin-img" src="img/CZARNY.png" alt="Kosz czarny" />
+      </div>
     </div>
 
     <div id="right-panel">
       <p id="instruction">
-        Jeśli chcesz dowiedzieć się jakie odpady trafiają do zielonego pojemnika, postaraj się odnaleźć wszystkie 8 par obrazków w jak najkrótszym czasie.
+        Dopasuj odpady do odpowiednich pojemników.
       </p>
 
       <div id="buttons" class="controls">
@@ -317,205 +208,37 @@
     </div>
   </div>
 
-  <div id="end-screen" class="hidden">
-    <h2>GRATULACJE!</h2>
-    <p>Udało Ci się znaleźć wszystkie pary!</p>
-    <p id="final-time">Twój czas: ...</p>
-    <button onclick="restartAndStart()">Zagraj ponownie</button>
-
-    <div id="end-logo-section">
-      <img src="img/Logo.png" alt="Logo gry" />
-      <p>WWW.SZKLOMUSTGOON.PL</p>
-    </div>
-  </div>
-
   <script>
-    const gridContainer = document.getElementById("grid-container");
-    const startBtn = document.getElementById("startBtn");
+    const randomImage = document.getElementById("random-image");
     const timerDisplay = document.getElementById("timer");
-    const endScreen = document.getElementById("end-screen");
-    const finalTime = document.getElementById("final-time");
+    const startBtn = document.getElementById("startBtn");
 
-    let firstCard = null;
-    let secondCard = null;
-    let lockBoard = true;
-    let matchedPairs = 0;
     let timer;
     let seconds = 0;
-    let started = false;
-
-    const createCardArray = () => {
-      const pairs = [];
-      for (let i = 1; i <= 8; i++) {
-        pairs.push(i, i);
-      }
-      return pairs.sort(() => 0.5 - Math.random());
-    };
-
-    const createBoard = (colorCovers = false) => {
-      gridContainer.innerHTML = "";
-      const cardValues = createCardArray();
-
-      cardValues.forEach((value) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        const frontImg = document.createElement("img");
-        frontImg.src = `img/${value}.png`;
-        frontImg.classList.add("front");
-
-        const backImg = document.createElement("img");
-        backImg.src = "img/9.png";
-        backImg.classList.add("cover");
-        if (colorCovers) backImg.classList.add("kolorowa");
-
-        card.appendChild(frontImg);
-        card.appendChild(backImg);
-        gridContainer.appendChild(card);
-
-        card.addEventListener("click", () => handleCardClick(card, value));
-      });
-    };
-
-    const handleCardClick = (card, value) => {
-      if (lockBoard || card.classList.contains("flipped")) return;
-
-      card.classList.add("flipped");
-
-      if (!firstCard) {
-        firstCard = { card, value };
-      } else {
-        secondCard = { card, value };
-        lockBoard = true;
-
-        if (firstCard.value === secondCard.value) {
-          matchedPairs++;
-          resetTurn();
-          if (matchedPairs === 8) {
-            endGame();
-          }
-        } else {
-          setTimeout(() => {
-            firstCard.card.classList.remove("flipped");
-            secondCard.card.classList.remove("flipped");
-            resetTurn();
-          }, 1000);
-        }
-      }
-    };
-
-    const resetTurn = () => {
-      firstCard = null;
-      secondCard = null;
-      lockBoard = false;
-    };
 
     const startTimer = () => {
       seconds = 0;
       timerDisplay.textContent = "Czas: 0 s";
+      clearInterval(timer);
       timer = setInterval(() => {
         seconds++;
         timerDisplay.textContent = `Czas: ${seconds} s`;
       }, 1000);
     };
 
-    const stopTimer = () => {
-      clearInterval(timer);
-    };
-
-    const restartAndStart = () => {
-      stopTimer();
-      seconds = 0;
-      timerDisplay.textContent = "Czas: 0 s";
-      matchedPairs = 0;
-      firstCard = null;
-      secondCard = null;
-      lockBoard = true;
-
-      const oldCards = Array.from(document.querySelectorAll(".card"));
-      const gridRect = gridContainer.getBoundingClientRect();
-      const centerX = gridRect.left + gridRect.width / 2;
-      const centerY = gridRect.top + gridRect.height / 2;
-
-      oldCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const offsetX = centerX - (rect.left + rect.width / 2);
-        const offsetY = centerY - (rect.top + rect.height / 2);
-        card.style.transition = "transform 0.5s ease-in-out";
-        card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
-
-      setTimeout(() => {
-        createBoard(true);
-        lockBoard = false;
-        startTimer();
-
-        const newCards = Array.from(document.querySelectorAll(".card"));
-        const newGridRect = gridContainer.getBoundingClientRect();
-        const centerX = newGridRect.left + newGridRect.width / 2;
-        const centerY = newGridRect.top + newGridRect.height / 2;
-
-        newCards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const offsetX = centerX - (rect.left + rect.width / 2);
-          const offsetY = centerY - (rect.top + rect.height / 2);
-          card.style.transition = "none";
-          card.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        });
-
-        setTimeout(() => {
-          newCards.forEach(card => {
-            card.style.transition = "transform 0.6s ease-in-out";
-            card.style.transform = "translate(0, 0)";
-          });
-
-          setTimeout(() => {
-            newCards.forEach(card => {
-              card.style.transition = "";
-              card.style.transform = "";
-            });
-          }, 700);
-        }, 30);
-      }, 600);
-
-      endScreen.classList.remove("visible");
-      document.getElementById("game-container").style.display = "flex";
-      document.getElementById("instruction").style.display = "";
-      document.getElementById("instruction-mobile").style.display = "";
-    };
-
-    const endGame = () => {
-      stopTimer();
-      finalTime.textContent = `Twój czas: ${seconds} s`;
-
-      document.getElementById("game-container").style.display = "none";
-      document.getElementById("instruction").style.display = "none";
-      document.getElementById("instruction-mobile").style.display = "none";
-      endScreen.classList.add("visible");
-
-      confetti({
-        particleCount: 150,
-        spread: 100,
-        origin: { y: 0.6 }
-      });
+    const getRandomImagePath = () => {
+      const number = Math.floor(Math.random() * 40) + 10; // od 10 do 49
+      return `img/${number}.png`;
     };
 
     startBtn.addEventListener("click", () => {
-      if (!started) {
-        document.querySelectorAll(".cover").forEach(cover => cover.classList.add("kolorowa"));
-        lockBoard = false;
-        startTimer();
-        startBtn.textContent = "Restart";
-        started = true;
-      } else {
-        restartAndStart();
-      }
+      randomImage.src = getRandomImagePath();
+      startTimer();
     });
 
     window.onload = () => {
-      createBoard(false);
+      randomImage.src = getRandomImagePath();
     };
   </script>
 </body>
 </html>
-

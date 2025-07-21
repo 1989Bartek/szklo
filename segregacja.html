@@ -77,7 +77,7 @@
       font-size: 28px;
       font-weight: bold;
       color: white;
-      display: none; /* ← licznik ukryty domyślnie */
+      display: none; 
     }
 
     #bins-row {
@@ -341,7 +341,7 @@
         pointsDisplay.textContent = "Punkty: 0";
         startBtn.textContent = "Restart";
         binImages.forEach(img => img.classList.add("kolorowa"));
-        counterOverlay.style.display = "block"; // ← pokaż licznik
+        counterOverlay.style.display = "block"; 
         loadNewImage();
       } else {
         location.reload();
@@ -381,7 +381,7 @@
 
     window.onload = () => {
       randomImage.src = "img/0.png";
-      counterOverlay.style.display = "none"; // ← ukryj licznik na starcie
+      counterOverlay.style.display = "none"; 
       binImages.forEach(img => img.classList.remove("kolorowa"));
     };
   </script>

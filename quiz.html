@@ -1,1 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QUIZ - Szkło Must Go On</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
+      color: #e2e2e2;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    #game-title {
+      text-align: center;
+      font-size: 64px;
+      color: white;
+      margin-bottom: 30px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #instruction-mobile {
+      display: none;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0 auto 20px;
+      max-width: 400px;
+      width: 80%;
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    #left-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    #quiz-question {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+      min-height: 60px;
+    }
+
+    #answer-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .answer-box {
+      background-color: #b7ff8c;
+      color: #004d00;
+      border-radius: 16px;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border: 4px solid white;
+      transition: transform 0.2s ease;
+    }
+
+    .answer-box:hover {
+      transform: scale(1.05);
+    }
+
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    #instruction {
+      font-size: 24px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #buttons button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #points {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #logo-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #logo {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #website {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    #end-screen {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    #end-screen.visible {
+      display: block;
+    }
+
+    #end-screen h2 {
+      font-size: 32px;
+      color: #c0ff6a;
+      margin-bottom: 16px;
+    }
+
+    #end-screen p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #end-screen button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #end-logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #end-logo-section img {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+
+    #end-logo-section p {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 1024px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      #instruction {
+        display: none;
+      }
+      #instruction-mobile {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="game-title">QUIZ</h1>
+  <p id="instruction-mobile">Wybierz poprawną odpowiedź na pytanie.</p>
+
+  <div id="game-container">
+    <div id="left-panel">
+      <div id="quiz-question">Tutaj pojawi się pytanie do quizu</div>
+      <div id="answer-options">
+        <div class="answer-box">Odpowiedź A</div>
+        <div class="answer-box">Odpowiedź B</div>
+        <div class="answer-box">Odpowiedź C</div>
+        <div class="answer-box">Odpowiedź D</div>
+      </div>
+    </div>
+
+    <div id="right-panel">
+      <p id="instruction">Wybierz poprawną odpowiedź na pytanie.</p>
+      <div id="buttons"><button id="startBtn">Start</button></div>
+      <div id="points">Punkty: 0</div>
+      <div id="logo-section">
+        <img src="img/Logo.png" alt="Logo gry" id="logo" />
+        <p id="website">WWW.SZKLOMUSTGOON.PL</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="end-screen">
+    <h2>GRATULACJE!</h2>
+    <p>Udało Ci się ukończyć zadanie.</p>
+    <p id="final-score">Zdobyte punkty: ...</p>
+    <button onclick="location.reload()">Zagraj ponownie</button>
+    <div id="end-logo-section">
+      <img src="img/Logo.png" alt="Logo gry" />
+      <p>WWW.SZKLOMUSTGOON.PL</p>
+    </div>
+  </div>
+
+  <script>
+    // Miejsce na logikę quizu – zostanie uzupełnione w kolejnym kroku z pytaniami i odpowiedziami
+  </script>
+</body>
+</html>
 

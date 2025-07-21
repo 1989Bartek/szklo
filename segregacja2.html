@@ -3,14 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gra – Segregacja Odpadów</title>
+  <title>Segregacja Odpadów - Szkło Must Go On</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
       background: radial-gradient(ellipse at center, #0f1f17 0%, #0a1813 100%);
@@ -18,7 +14,6 @@
       padding: 20px;
       min-height: 100vh;
     }
-
     #game-title {
       text-align: center;
       font-size: 64px;
@@ -28,7 +23,6 @@
       letter-spacing: 4px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
-
     #instruction-mobile {
       display: none;
       font-size: 18px;
@@ -38,7 +32,6 @@
       max-width: 400px;
       width: 80%;
     }
-
     #game-container {
       display: flex;
       flex-direction: row;
@@ -49,27 +42,36 @@
       margin: auto;
       flex-wrap: wrap;
     }
-
     #left-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
-    #random-image {
+    #random-image-wrapper {
+      position: relative;
       width: 100%;
       max-width: 500px;
-      height: auto;
       margin-bottom: 20px;
     }
-
+    #random-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    #counter-overlay {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
     #bins-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .bin-img {
       width: 70px;
       height: auto;
@@ -79,24 +81,13 @@
       border-radius: 12px;
       cursor: pointer;
     }
-
-    .bin-img.kolorowa {
-      filter: none;
-    }
-
-    .bin-img.correct {
-      border-color: #00ff00;
-    }
-
-    .bin-img.incorrect {
-      border-color: #ff0000;
-    }
-
+    .bin-img.kolorowa { filter: none; }
+    .bin-img.correct { border-color: #00ff00; }
+    .bin-img.incorrect { border-color: #ff0000; }
     .bin-img:active {
       transform: scale(0.95);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
-
     #right-panel {
       display: flex;
       flex-direction: column;
@@ -104,13 +95,11 @@
       max-width: 400px;
       text-align: center;
     }
-
     #instruction {
       font-size: 24px;
       line-height: 1.6;
       margin-bottom: 20px;
     }
-
     #buttons {
       display: flex;
       justify-content: center;
@@ -118,7 +107,6 @@
       margin-top: 20px;
       margin-bottom: 10px;
     }
-
     #buttons button {
       width: 80%;
       max-width: 400px;
@@ -132,63 +120,77 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-
     #points {
       font-size: 18px;
       font-weight: bold;
       margin-top: 10px;
     }
-
     #logo-section {
       text-align: center;
       margin-top: 20px;
     }
-
     #logo {
       max-width: 400px;
       width: 80%;
       height: auto;
     }
-
     #website {
       margin-top: 8px;
       font-weight: bold;
     }
-
+    #end-screen {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    #end-screen.visible { display: block; }
+    #end-screen h2 {
+      font-size: 32px;
+      color: #c0ff6a;
+      margin-bottom: 16px;
+    }
+    #end-screen p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    #end-screen button {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #c0ff6a;
+      color: #004d00;
+      border: 4px solid white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    #end-logo-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+    #end-logo-section img {
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+    }
+    #end-logo-section p {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
         align-items: center;
       }
-
-      #left-panel,
-      #right-panel {
-        width: 100%;
-      }
-
-      #instruction {
-        display: none;
-      }
-
       #instruction-mobile {
         display: block;
-      }
-
-      #buttons button {
-        width: 80%;
-      }
-
-      #points {
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      #logo {
-        width: 80%;
-      }
-
-      #website {
-        font-size: 14px;
       }
     }
   </style>
@@ -196,13 +198,14 @@
 <body>
   <h1 id="game-title">SEGREGACJA ODPADÓW</h1>
 
-  <p id="instruction-mobile">
-    Dopasuj odpady do odpowiednich pojemników.
-  </p>
+  <p id="instruction-mobile">Dopasuj odpady do odpowiednich pojemników.</p>
 
   <div id="game-container">
     <div id="left-panel">
-      <img id="random-image" src="img/0.png" alt="Obrazek odpadu" />
+      <div id="random-image-wrapper">
+        <img id="random-image" src="img/0.png" alt="Obrazek odpadu" />
+        <div id="counter-overlay">10</div>
+      </div>
       <div id="bins-row">
         <img class="bin-img" src="img/ZOLTY.png" alt="zolty" data-kolor="zolty" />
         <img class="bin-img" src="img/NIEBIESKI.png" alt="niebieski" data-kolor="niebieski" />
@@ -213,16 +216,9 @@
     </div>
 
     <div id="right-panel">
-      <p id="instruction">
-        Dopasuj odpady do odpowiednich pojemników.
-      </p>
-
-      <div id="buttons" class="controls">
-        <button id="startBtn">Start</button>
-      </div>
-
+      <p id="instruction">Dopasuj odpady do odpowiednich pojemników.</p>
+      <div id="buttons"><button id="startBtn">Start</button></div>
       <div id="points">Punkty: 0</div>
-
       <div id="logo-section">
         <img src="img/Logo.png" alt="Logo gry" id="logo" />
         <p id="website">WWW.SZKLOMUSTGOON.PL</p>
@@ -230,15 +226,31 @@
     </div>
   </div>
 
+  <div id="end-screen">
+    <h2>GRATULACJE!</h2>
+    <p>Udało Ci się ukończyć zadanie.</p>
+    <p id="final-score">Zdobyte punkty: ...</p>
+    <button onclick="location.reload()">Zagraj ponownie</button>
+    <div id="end-logo-section">
+      <img src="img/Logo.png" alt="Logo gry" />
+      <p>WWW.SZKLOMUSTGOON.PL</p>
+    </div>
+  </div>
+
   <script>
     const randomImage = document.getElementById("random-image");
+    const counterOverlay = document.getElementById("counter-overlay");
     const binImages = document.querySelectorAll(".bin-img");
     const pointsDisplay = document.getElementById("points");
     const startBtn = document.getElementById("startBtn");
+    const endScreen = document.getElementById("end-screen");
+    const gameContainer = document.getElementById("game-container");
+    const finalScore = document.getElementById("final-score");
 
-    let currentNumber = 0;
-    let started = false;
     let points = 0;
+    let attempts = 10;
+    let started = false;
+    let imageQueue = [];
 
     const correctMap = {
       niebieski: [10,11,41,42,43,44,45,46,47,48,49],
@@ -248,19 +260,39 @@
       czarny: [33,34,35,36,37,38,39,40]
     };
 
-    const getRandomNumber = () => Math.floor(Math.random() * 40) + 10;
+    const shuffle = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
 
     const loadNewImage = () => {
-      currentNumber = getRandomNumber();
-      randomImage.src = `img/${currentNumber}.png`;
+      const next = imageQueue.pop();
+      randomImage.src = `img/${next}.png`;
+      counterOverlay.textContent = imageQueue.length;
+    };
+
+    const endGame = () => {
+      gameContainer.style.display = "none";
+      endScreen.classList.add("visible");
+      finalScore.textContent = `Zdobyte punkty: ${points}`;
+      confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
     };
 
     startBtn.addEventListener("click", () => {
       if (!started) {
-        binImages.forEach(img => img.classList.add("kolorowa"));
-        loadNewImage();
         started = true;
+        points = 0;
+        attempts = 10;
+        pointsDisplay.textContent = "Punkty: 0";
         startBtn.textContent = "Restart";
+        binImages.forEach(img => img.classList.add("kolorowa"));
+
+        const allImages = Array.from({ length: 40 }, (_, i) => i + 10);
+        imageQueue = shuffle(allImages).slice(0, 10).reverse(); // reverse to use pop()
+        loadNewImage();
       } else {
         location.reload();
       }
@@ -268,8 +300,9 @@
 
     binImages.forEach(bin => {
       bin.addEventListener("click", () => {
-        if (!started) return;
+        if (!started || imageQueue.length <= 0) return;
 
+        const currentNumber = parseInt(randomImage.src.match(/(\d+)\.png/)[1]);
         const kolor = bin.dataset.kolor;
         const poprawne = correctMap[kolor] || [];
 
@@ -285,13 +318,18 @@
 
         setTimeout(() => {
           bin.classList.remove("correct", "incorrect");
-          loadNewImage();
+          if (imageQueue.length === 0) {
+            endGame();
+          } else {
+            loadNewImage();
+          }
         }, 500);
       });
     });
 
     window.onload = () => {
       randomImage.src = "img/0.png";
+      counterOverlay.textContent = "10";
       binImages.forEach(img => img.classList.remove("kolorowa"));
     };
   </script>

@@ -18,6 +18,7 @@
       color: #e2e2e2;
       padding: 20px;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     #game-title {
@@ -83,8 +84,10 @@
     #bins-row {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: nowrap;
+      flex-shrink: 1;
+      overflow-x: auto;
     }
 
     .bin-img {
@@ -95,6 +98,7 @@
       border: 4px solid transparent;
       border-radius: 12px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .bin-img.kolorowa {
@@ -229,14 +233,27 @@
       to { opacity: 1; transform: scale(1); }
     }
 
+    @media (max-width: 480px) {
+      .bin-img {
+        width: 60px;
+      }
+
+      #game-title {
+        font-size: 36px;
+        letter-spacing: 2px;
+      }
+    }
+
     @media (max-width: 1024px) {
       #game-container {
         flex-direction: column;
         align-items: center;
       }
+
       #instruction {
         display: none;
       }
+
       #instruction-mobile {
         display: block;
       }
